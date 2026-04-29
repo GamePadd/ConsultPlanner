@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="31c10a6cb31b4c369dfc0e5ff630f190" Name="Diagram1" ZoomLevel="87">
+        <EntityTypeShape EntityType="ConsultPlannerModel.Consultants" Width="1.5" PointX="3.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.ConsultantTopics" Width="1.5" PointX="6" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.ConsultationRequests" Width="1.5" PointX="2" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.Feedbacks" Width="1.5" PointX="10.625" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.Roles" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.SessionMessages" Width="1.5" PointX="8.25" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.Sessions" Width="1.5" PointX="10.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.SessionTopics" Width="1.5" PointX="10.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.sysdiagrams" Width="1.5" PointX="8.125" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.Topics" Width="1.5" PointX="6" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.UserRoles" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.Users" Width="1.5" PointX="5.5" PointY="3.5" IsExpanded="true" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_Consultants_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_ConsultantTopics_Consultants" ManuallyRouted="false" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_ConsultationRequests_Consultants" ManuallyRouted="false" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_ConsultantTopics_Topics" ManuallyRouted="false" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_ConsultationRequests_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_Sessions_ConsultationRequests" ManuallyRouted="false" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_Feedbacks_Sessions" ManuallyRouted="false" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_Feedbacks_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_UserRoles_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_SessionMessages_Sessions" ManuallyRouted="false" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_SessionMessages_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_SessionTopics_Sessions" ManuallyRouted="false" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_SessionTopics_Topics" ManuallyRouted="false" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_UserRoles_Users" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
