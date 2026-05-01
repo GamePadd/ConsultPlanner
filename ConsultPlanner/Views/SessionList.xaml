@@ -1,14 +1,14 @@
-﻿<Page x:Class="ConsultPlanner.SessionList"
+﻿<Page x:Class="ConsultPlanner.Views.SessionList"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:ConsultPlanner"
+      xmlns:local="clr-namespace:ConsultPlanner.Views"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SessionList">
 
-    <ListView ItemsSource="{Binding AllSessions}"
+    <ListView ItemsSource="{Binding Sessions, UpdateSourceTrigger=PropertyChanged}"
           d:ItemsSource="{d:SampleData ItemCount=3}">
         <ListView.ItemTemplate>
             <DataTemplate>

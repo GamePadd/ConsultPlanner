@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ConsultPlanner
+namespace ConsultPlanner.Views
 {
     /// <summary>
-    /// Логика взаимодействия для UserList.xaml
+    /// Логика взаимодействия для SessionList.xaml
     /// </summary>
-    public partial class UserList : Page
+    public partial class SessionList : Page
     {
-        public UserList()
+        public SessionList()
         {
             InitializeComponent();
             DataContext = new ViewModels.MainViewModel();

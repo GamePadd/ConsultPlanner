@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ConsultPlanner
+namespace ConsultPlanner.Views
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
