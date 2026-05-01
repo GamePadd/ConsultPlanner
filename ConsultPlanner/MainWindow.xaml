@@ -51,8 +51,12 @@
                 Margin="5"
                 Background="Black">
             <StackPanel Orientation="Vertical">
-                <Button Content="Пользователи" Style="{StaticResource ResourceKey=Button1}"/>
-                <Button Content="Сессии" Style="{StaticResource ResourceKey=Button1}"/>
+                <Button Content="Пользователи" 
+                        Style="{StaticResource ResourceKey=Button1}"
+                        Click="OpenUsersPage"/>
+                <Button Content="Сессии" 
+                        Style="{StaticResource ResourceKey=Button1}"
+                        Click="OpenSessionsPage"/>
             </StackPanel>   
         </Border>
         <Frame x:Name="MainFrame"

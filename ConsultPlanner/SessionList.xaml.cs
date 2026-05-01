@@ -16,23 +16,14 @@ using System.Windows.Shapes;
 namespace ConsultPlanner
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для SessionList.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SessionList : Page
     {
-        public MainWindow()
+        public SessionList()
         {
             InitializeComponent();
-        }
-
-        private void OpenUsersPage(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Navigate(new UserList());
-        }
-
-        private void OpenSessionsPage(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Navigate(new SessionList());
+            DataContext = new ViewModels.MainViewModel();
         }
     }
 }
