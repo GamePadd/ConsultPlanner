@@ -5,32 +5,32 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="31c10a6cb31b4c369dfc0e5ff630f190" Name="Diagram1" ZoomLevel="87">
-        <EntityTypeShape EntityType="ConsultPlannerModel.Consultants" Width="1.5" PointX="3.25" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConsultPlannerModel.ConsultantTopics" Width="1.5" PointX="6" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConsultPlannerModel.ConsultationRequests" Width="1.5" PointX="2" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConsultPlannerModel.Feedbacks" Width="1.5" PointX="10.625" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConsultPlannerModel.Roles" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConsultPlannerModel.SessionMessages" Width="1.5" PointX="8.25" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConsultPlannerModel.Sessions" Width="1.5" PointX="10.75" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConsultPlannerModel.SessionTopics" Width="1.5" PointX="10.75" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConsultPlannerModel.sysdiagrams" Width="1.5" PointX="8.125" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConsultPlannerModel.Topics" Width="1.5" PointX="6" PointY="12.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConsultPlannerModel.UserRoles" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConsultPlannerModel.Users" Width="1.5" PointX="5.5" PointY="3.5" IsExpanded="true" />
-        <AssociationConnector Association="ConsultPlannerModel.FK_Consultants_Users" ManuallyRouted="false" />
-        <AssociationConnector Association="ConsultPlannerModel.FK_ConsultantTopics_Consultants" ManuallyRouted="false" />
-        <AssociationConnector Association="ConsultPlannerModel.FK_ConsultationRequests_Consultants" ManuallyRouted="false" />
-        <AssociationConnector Association="ConsultPlannerModel.FK_ConsultantTopics_Topics" ManuallyRouted="false" />
-        <AssociationConnector Association="ConsultPlannerModel.FK_ConsultationRequests_Users" ManuallyRouted="false" />
-        <AssociationConnector Association="ConsultPlannerModel.FK_Sessions_ConsultationRequests" ManuallyRouted="false" />
-        <AssociationConnector Association="ConsultPlannerModel.FK_Feedbacks_Sessions" ManuallyRouted="false" />
-        <AssociationConnector Association="ConsultPlannerModel.FK_Feedbacks_Users" ManuallyRouted="false" />
-        <AssociationConnector Association="ConsultPlannerModel.FK_UserRoles_Roles" ManuallyRouted="false" />
-        <AssociationConnector Association="ConsultPlannerModel.FK_SessionMessages_Sessions" ManuallyRouted="false" />
-        <AssociationConnector Association="ConsultPlannerModel.FK_SessionMessages_Users" ManuallyRouted="false" />
-        <AssociationConnector Association="ConsultPlannerModel.FK_SessionTopics_Sessions" ManuallyRouted="false" />
-        <AssociationConnector Association="ConsultPlannerModel.FK_SessionTopics_Topics" ManuallyRouted="false" />
-        <AssociationConnector Association="ConsultPlannerModel.FK_UserRoles_Users" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.Consultants" Width="1.5" PointX="2.875" PointY="11" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.ConsultantTopics" Width="1.5" PointX="4.875" PointY="10" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.ConsultationRequests" Width="1.5" PointX="2" PointY="7.625" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.Feedbacks" Width="1.5" PointX="8.125" PointY="4" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.Roles" Width="1.5" PointX="0.75" PointY="3.625" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.SessionMessages" Width="1.5" PointX="8.125" PointY="8.625" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.Sessions" Width="1.5" PointX="10.625" PointY="6.75" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.SessionTopics" Width="1.5" PointX="10.5" PointY="10.75" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.Topics" Width="1.5" PointX="5" PointY="12.375" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.UserRoles" Width="1.5" PointX="3.125" PointY="3.75" />
+        <EntityTypeShape EntityType="ConsultPlannerModel.Users" Width="1.5" PointX="5.5" PointY="3.5" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_Consultants_Users" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_ConsultantTopics_Consultants" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_ConsultationRequests_Consultants" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_ConsultantTopics_Topics" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_ConsultationRequests_Users" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_Sessions_ConsultationRequests" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_Feedbacks_Sessions" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_Feedbacks_Users" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_UserRoles_Roles" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_SessionMessages_Sessions" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_SessionMessages_Users" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_SessionTopics_Sessions" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_SessionTopics_Topics" />
+        <AssociationConnector Association="ConsultPlannerModel.FK_UserRoles_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

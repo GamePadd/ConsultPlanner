@@ -5,8 +5,60 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConsultPlanner"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Background="Gray">
+    <Window.Resources>
+        <Style x:Key="Button1" TargetType="Button">
+            <Setter Property="Background" Value="Red"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="0 2"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Blue"/>
+                    <Setter Property="TextBlock.TextDecorations" Value="Underline"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0"
+                Grid.Row="0"
+                Grid.ColumnSpan="2"
+                Background="Black">
+            <TextBlock Text="ООО Компания"
+                       Foreground="White"
+                       FontSize="30"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
+        </Border>
+
+        <Border Grid.Column="0"
+                Grid.Row="1"
+                CornerRadius="10"
+                Padding="10"
+                Margin="5"
+                Background="Black">
+            <StackPanel Orientation="Vertical">
+                <Button Content="Пользователи" Style="{StaticResource ResourceKey=Button1}"/>
+                <Button Content="Сессии" Style="{StaticResource ResourceKey=Button1}"/>
+            </StackPanel>   
+        </Border>
+        <Frame x:Name="MainFrame"
+               Grid.Column="2"
+               Grid.Row="2">
+            
+        </Frame>
     </Grid>
 </Window>
