@@ -5,16 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConsultPlanner.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="Gray">
+        Title="MainWindow" Height="450" Width="800" Background="White">
     <Window.Resources>
         <Style x:Key="Button1" TargetType="Button">
-            <Setter Property="Background" Value="Red"/>
-            <Setter Property="Height" Value="50"/>
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Height" Value="40"/>
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Margin" Value="0 4"/>
+            <Setter Property="Margin" Value="5 5"/>
+            <Setter Property="Padding" Value="5"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Foreground" Value="Blue"/>
@@ -26,10 +27,10 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -37,36 +38,31 @@
                 Grid.Row="0"
                 Grid.ColumnSpan="2"
                 Background="Black">
-            <TextBlock Text="ООО Компания"
+            <TextBlock Text="ConsultPlanner"
                        Foreground="White"
                        FontSize="30"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"/>
         </Border>
-
-        <Border Grid.Column="0"
-                Grid.Row="1"
-                CornerRadius="10"
-                Padding="10"
-                Margin="5"
-                Background="Black">
-            <StackPanel Orientation="Vertical">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Horizontal">
                 <Button Content="Пользователи" 
                         Style="{StaticResource ResourceKey=Button1}"
                         Click="OpenUsersPage"/>
                 <Button Content="Сессии" 
                         Style="{StaticResource ResourceKey=Button1}"
                         Click="OpenSessionsPage"/>
-                <Button Style="{StaticResource ResourceKey=Button1}" Height="60"
+                <Button Style="{StaticResource ResourceKey=Button1}"
                         Click="AddUserForm">
                     <TextBlock Text="Добавить пользователя" TextWrapping="Wrap" TextAlignment="Center"/>
                 </Button>
-            </StackPanel>   
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Row="2" BorderThickness="2" BorderBrush="Black" CornerRadius="0" Padding="5" Margin="5 0 5 5">
+            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden">
+                
+            </Frame>
         </Border>
-        <Frame x:Name="MainFrame"
-               Grid.Column="2"
-               Grid.Row="2">
-            
-        </Frame>
     </Grid>
 </Window>
