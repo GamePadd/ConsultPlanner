@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConsultPlanner.Views"
         mc:Ignorable="d"
-        Title="ConsultPlanner" Height="450" Width="800" Background="White">
+        FontFamily="Segoe UI Light"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        Title="ConsultPlanner" Height="450" Width="800" Background="#242424">
     <Window.Resources>
         <Style x:Key="Button1" TargetType="Button">
             <Setter Property="Background" Value="Black"/>
@@ -23,10 +27,34 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="HeaderButton" TargetType="Button">
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Margin" Value="20 0 0 0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="bdr_main" BorderThickness="0" BorderBrush="Transparent" Background="Transparent">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Content"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bdr_main" Property="Background" Value="#474747"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bdr_main" Property="Background" Value="#474747"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness ="0" CornerRadius="0" CaptionHeight="0"/>
+    </WindowChrome.WindowChrome>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -34,16 +62,18 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0"
-                Grid.Row="0"
-                Grid.ColumnSpan="2"
-                Background="Black">
-            <TextBlock Text="ConsultPlanner"
-                       Foreground="White"
-                       FontSize="30"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"/>
-        </Border>
+        <WrapPanel Grid.Row="0" VerticalAlignment="Center" Margin="20 0">
+            <TextBlock Text="ConsultPlanner" FontSize="30" Foreground="White"/>
+        </WrapPanel>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="15 10">
+            <Button x:Name="buttonMinimize" Style="{StaticResource ResourceKey=HeaderButton}" Click="buttonMinimize_Click">
+                <Image Source="/Resources/Images/Resize.png"/>
+            </Button>
+            <Button x:Name="buttonClose" Style="{StaticResource ResourceKey=HeaderButton}" Click="buttonClose_Click">
+                <Image Source="/Resources/Images/Exit.png"/>
+            </Button>
+        </StackPanel>
+        
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
             <StackPanel Orientation="Horizontal">
                 <Button Content="Пользователи" 
