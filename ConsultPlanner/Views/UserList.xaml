@@ -18,11 +18,11 @@
         </Style>
         
         <Style x:Key="TableElementBlack" TargetType="TextBlock" BasedOn="{StaticResource TableCell}">
-            <Setter Property="Width" Value="89"/>
+            <Setter Property="Width" Value="84"/>
             <Setter Property="Background" Value="#303030"/>
         </Style>
         <Style x:Key="TableElementWhite" TargetType="TextBlock" BasedOn="{StaticResource TableCell}">
-            <Setter Property="Width" Value="88"/>
+            <Setter Property="Width" Value="85"/>
             <Setter Property="Background" Value="#4c4c4c"/>
         </Style>
         <Style x:Key="StackElementWhite" TargetType="StackPanel">

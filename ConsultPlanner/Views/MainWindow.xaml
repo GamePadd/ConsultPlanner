@@ -18,7 +18,7 @@
             <Setter Property="BorderBrush" Value="White"/>
             <Setter Property="BorderThickness" Value="0.8"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Margin" Value="5 5"/>
+            <Setter Property="Margin" Value="5 0"/>
             <Setter Property="Padding" Value="10"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
@@ -54,8 +54,8 @@
     </WindowChrome.WindowChrome>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="70"/>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="55"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -63,7 +63,7 @@
         </Grid.ColumnDefinitions>
 
         <WrapPanel Grid.Row="0" VerticalAlignment="Center" Margin="20 0">
-            <TextBlock Text="ConsultPlanner" FontSize="30" Foreground="White"/>
+            <TextBlock Text="ConsultPlanner" FontSize="25" Foreground="White"/>
         </WrapPanel>
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="15 10">
             <Button x:Name="buttonMinimize" Style="{StaticResource ResourceKey=HeaderButton}" Click="buttonMinimize_Click">
@@ -74,7 +74,7 @@
             </Button>
         </StackPanel>
         
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto" Margin="12 0">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto" Margin="15 0">
             <StackPanel Orientation="Horizontal">
                 <Button Content="Пользователи" 
                         Style="{StaticResource ResourceKey=Button1}"
@@ -94,7 +94,7 @@
             </StackPanel>
         </ScrollViewer>
 
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"  Grid.Row="2">
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"  Grid.Row="2" Margin="15 0 15 15">
 
         </Frame>
     </Grid>
