@@ -62,7 +62,7 @@
         <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Patronymic}" Margin="5"/>
 
         <TextBlock Grid.Row="3" Grid.Column = "0" Text="Дата рождения:" Margin="5" Style="{StaticResource ResourceKey=InputTextView}"/>
-        <DatePicker Grid.Row="3" Grid.Column="1" Text="{Binding Birthday}" Margin="5"/>
+        <DatePicker Grid.Row="3" Grid.Column="1" SelectedDate="{Binding Birthday}" Margin="5"/>
 
         <TextBlock Grid.Row="4" Grid.Column = "0" Text="Телефон:" Margin="5" Style="{StaticResource ResourceKey=InputTextView}"/>
         <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Phone}" Margin="5"/>
