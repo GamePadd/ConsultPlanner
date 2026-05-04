@@ -30,9 +30,24 @@ namespace ConsultPlanner.Views
             MainFrame.Navigate(new UserList());
         }
 
+        private void OpenConsPage(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OpenRolesPage(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void OpenSessionsPage(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new SessionList());
+        }
+
+        private void OpenTopicsPage(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void AddUserForm(object sender, RoutedEventArgs e)

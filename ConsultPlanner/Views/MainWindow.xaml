@@ -12,17 +12,17 @@
         Title="ConsultPlanner" Height="450" Width="800" Background="#242424">
     <Window.Resources>
         <Style x:Key="Button1" TargetType="Button">
-            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Background" Value="#242424"/>
             <Setter Property="Height" Value="40"/>
-            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="BorderThickness" Value="0.8"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Margin" Value="5 5"/>
-            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Padding" Value="10"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Foreground" Value="Blue"/>
+                    <Setter Property="Foreground" Value="#474747"/>
                     <Setter Property="TextBlock.TextDecorations" Value="Underline"/>
                 </Trigger>
             </Style.Triggers>
@@ -55,7 +55,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -74,25 +74,28 @@
             </Button>
         </StackPanel>
         
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto" Margin="12 0">
             <StackPanel Orientation="Horizontal">
                 <Button Content="Пользователи" 
                         Style="{StaticResource ResourceKey=Button1}"
                         Click="OpenUsersPage"/>
+                <Button Content="Консультанты" 
+                        Style="{StaticResource ResourceKey=Button1}"
+                        Click="OpenConsPage"/>
+                <Button Content="Роли" 
+                        Style="{StaticResource ResourceKey=Button1}"
+                        Click="OpenRolesPage"/>
                 <Button Content="Сессии" 
                         Style="{StaticResource ResourceKey=Button1}"
                         Click="OpenSessionsPage"/>
-                <Button Style="{StaticResource ResourceKey=Button1}"
-                        Click="AddUserForm">
-                    <TextBlock Text="Добавить пользователя" TextWrapping="Wrap" TextAlignment="Center"/>
-                </Button>
+                <Button Content="Темы" 
+                        Style="{StaticResource ResourceKey=Button1}"
+                        Click="OpenTopicsPage"/>
             </StackPanel>
         </ScrollViewer>
 
-        <Border Grid.Row="2" BorderThickness="2" BorderBrush="Black" CornerRadius="0" Padding="5" Margin="5 0 5 5">
-            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden">
-                
-            </Frame>
-        </Border>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"  Grid.Row="2">
+
+        </Frame>
     </Grid>
 </Window>
