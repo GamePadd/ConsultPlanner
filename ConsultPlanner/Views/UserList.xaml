@@ -62,7 +62,8 @@
         <ListView ItemsSource="{Binding Users, UpdateSourceTrigger=PropertyChanged}"
                   d:ItemsSource="{d:SampleData ItemCount=3}"
                   Background="#242424" BorderThickness="0"
-                  Grid.Row="0">
+                  Grid.Row="0"
+                  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
