@@ -23,7 +23,7 @@ namespace ConsultPlanner.Views
         public SessionList()
         {
             InitializeComponent();
-            DataContext = new ViewModels.MainViewModel();
+            DataContext = ViewModels.MainViewModel.Instance;
         }
     }
 }

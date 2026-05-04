@@ -3,6 +3,7 @@ using ConsultPlanner.Models;
 using ConsultPlanner.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -13,11 +14,12 @@ namespace ConsultPlanner.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        private static MainViewModel _instance;
         //Private Vars
-        List<Users> _users;
-        List<Sessions> _sessions;
+        ObservableCollection<Users> _users;
+        ObservableCollection<Sessions> _sessions;
         //Properties
-        public List<Users> Users
+        public ObservableCollection<Users> Users
         {
             get { return _users; }
             set
@@ -27,7 +29,7 @@ namespace ConsultPlanner.ViewModels
             }
         }
 
-        public List<Sessions> Sessions
+        public ObservableCollection<Sessions> Sessions
         {
             get { return _sessions; }
             set
@@ -44,7 +46,7 @@ namespace ConsultPlanner.ViewModels
         //Commands
         public ICommand LoadUsersCommand { get; }
         public ICommand LoadSessionsCommand { get; }
-        public MainViewModel()
+        private MainViewModel()
         {
             _userService = new UserService();
             _sessionService = new SessionService();
@@ -54,13 +56,27 @@ namespace ConsultPlanner.ViewModels
             LoadUsers(null);
             LoadSessions(null);
         }
+
+        public static MainViewModel Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new MainViewModel();
+                }
+
+                return _instance;
+            }
+        }
+
         public void LoadUsers(object parameter)
         {
-            _users = _userService.GetAllUsers();
+            Users = new ObservableCollection<Users>(_userService.GetAllUsers());
         }
         public void LoadSessions(object parameter)
         {
-            _sessions = _sessionService.GetAllSessions();
+            Sessions = new ObservableCollection<Sessions>(_sessionService.GetAllSessions());
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
