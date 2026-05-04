@@ -70,6 +70,10 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Services\SessionService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="Views\AddUser.xaml.cs">
+      <DependentUpon>AddUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SessionList.xaml.cs">
       <DependentUpon>SessionList.xaml</DependentUpon>
     </Compile>
@@ -77,6 +81,10 @@
       <DependentUpon>UserList.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Page Include="Views\AddUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

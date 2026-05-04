@@ -43,6 +43,9 @@ namespace ConsultPlanner.ViewModels
         private readonly IUserInterface _userService;
         private readonly ISessionInterface _sessionService;
 
+        public IUserInterface UserInterface { get { return _userService; } }
+        public ISessionInterface SessionsInterface { get { return _sessionService; } }
+
         //Commands
         public ICommand LoadUsersCommand { get; }
         public ICommand LoadSessionsCommand { get; }
@@ -77,6 +80,12 @@ namespace ConsultPlanner.ViewModels
         public void LoadSessions(object parameter)
         {
             Sessions = new ObservableCollection<Sessions>(_sessionService.GetAllSessions());
+        }
+
+        public void AddUser(Users user)
+        {
+            _userService.AddUser(user);
+            LoadUsers(null);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

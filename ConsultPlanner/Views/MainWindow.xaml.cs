@@ -34,5 +34,11 @@ namespace ConsultPlanner.Views
         {
             MainFrame.Navigate(new SessionList());
         }
+
+        private void AddUserForm(object sender, RoutedEventArgs e)
+        {
+            AddUser addUser = new AddUser();
+            addUser.Show();
+        }
     }
 }
