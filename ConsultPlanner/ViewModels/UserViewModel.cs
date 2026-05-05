@@ -14,7 +14,7 @@ namespace ConsultPlanner.ViewModels
     public class UserViewModel : INotifyPropertyChanged
     {
         //Vars
-        public Action Close {  get; set; }
+        public Action Close { get; set; }
         private Users _user;
 
         //Properties

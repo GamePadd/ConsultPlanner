@@ -12,6 +12,7 @@ namespace ConsultPlanner.Services
     {
         List<Users> GetAllUsers();
         void AddUser(Users user);
+        void DeleteUser(int id);
     }
 
     internal class UserService : IUserInterface
@@ -32,6 +33,23 @@ namespace ConsultPlanner.Services
             {
                 _context.Users.Add(user);
                 _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public void DeleteUser(int id)
+        {
+            try
+            {
+                var user = _context.Users.Find(id);
+                if (user != null)
+                {
+                    _context.Users.Remove(user);
+                    _context.SaveChanges();
+                }
             }
             catch (Exception ex)
             {

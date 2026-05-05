@@ -13,13 +13,13 @@
     <Window.Resources>
         <Style x:Key="Button1" TargetType="Button">
             <Setter Property="Background" Value="#242424"/>
-            <Setter Property="Height" Value="40"/>
+            <Setter Property="Height" Value="35"/>
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="BorderBrush" Value="White"/>
             <Setter Property="BorderThickness" Value="0.8"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Margin" Value="5 0"/>
-            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Padding" Value="8"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Foreground" Value="#474747"/>
@@ -28,7 +28,7 @@
             </Style.Triggers>
         </Style>
         <Style x:Key="HeaderButton" TargetType="Button">
-            <Setter Property="Width" Value="20"/>
+            <Setter Property="Width" Value="15"/>
             <Setter Property="Margin" Value="20 0 0 0"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -54,8 +54,8 @@
     </WindowChrome.WindowChrome>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="55"/>
-            <RowDefinition Height="55"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="45"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -63,7 +63,7 @@
         </Grid.ColumnDefinitions>
 
         <WrapPanel Grid.Row="0" VerticalAlignment="Center" Margin="20 0">
-            <TextBlock Text="ConsultPlanner" FontSize="25" Foreground="White"/>
+            <TextBlock Text="ConsultPlanner" FontSize="20" Foreground="White"/>
         </WrapPanel>
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="15 10">
             <Button x:Name="buttonMinimize" Style="{StaticResource ResourceKey=HeaderButton}" Click="buttonMinimize_Click">

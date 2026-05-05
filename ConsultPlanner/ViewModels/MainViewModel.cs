@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ConsultPlanner.ViewModels
@@ -48,12 +49,16 @@ namespace ConsultPlanner.ViewModels
 
         //Commands
         public ICommand LoadUsersCommand { get; }
+        public ICommand DeleteUserCommand { get; }
         public ICommand LoadSessionsCommand { get; }
         private MainViewModel()
         {
             _userService = new UserService();
             _sessionService = new SessionService();
+
             LoadUsersCommand = new RelayCommand(LoadUsers);
+            DeleteUserCommand = new RelayCommand(DeleteUser);
+
             LoadSessionsCommand = new RelayCommand(LoadSessions);
 
             LoadUsers(null);
@@ -73,19 +78,36 @@ namespace ConsultPlanner.ViewModels
             }
         }
 
+        //Users
         public void LoadUsers(object parameter)
         {
             Users = new ObservableCollection<Users>(_userService.GetAllUsers());
-        }
-        public void LoadSessions(object parameter)
-        {
-            Sessions = new ObservableCollection<Sessions>(_sessionService.GetAllSessions());
         }
 
         public void AddUser(Users user)
         {
             _userService.AddUser(user);
             LoadUsers(null);
+        }
+        public void DeleteUser(object parameter)
+        {
+            if (parameter is Users user)
+            {
+                var result = MessageBox.Show($"Удалить пользователя {user.LastName} {user.FirstName}?",
+                    "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    _userService.DeleteUser(user.ID);
+                    LoadUsers(null);
+                }
+            }
+        }
+
+        //Sessions
+        public void LoadSessions(object parameter)
+        {
+            Sessions = new ObservableCollection<Sessions>(_sessionService.GetAllSessions());
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

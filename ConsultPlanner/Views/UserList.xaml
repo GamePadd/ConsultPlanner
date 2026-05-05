@@ -80,7 +80,7 @@
                                 <Button Style="{StaticResource ResourceKey=TableButton}">
                                     <Image Source="../Resources/Images/Edit.png"/>
                                 </Button>
-                                <Button Style="{StaticResource ResourceKey=TableButton}">
+                                <Button Style="{StaticResource ResourceKey=TableButton}" Command="{Binding DataContext.DeleteUserCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding}">
                                     <Image Source="../Resources/Images/Exit.png"/>
                                 </Button>
                             </StackPanel>
