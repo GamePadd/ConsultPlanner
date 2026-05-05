@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using System.Collections.ObjectModel;
+using ConsultPlanner.Services;
 
 namespace ConsultPlanner.ViewModels
 {
@@ -16,6 +18,18 @@ namespace ConsultPlanner.ViewModels
         //Vars
         public Action Close { get; set; }
         private Users _user;
+        public class RoleItem
+        {
+            public int ID { set; get; }
+            public string Name { set; get; }
+            public bool IsSelected { set; get; }
+        }
+
+        public ObservableCollection<RoleItem> Roles { get; set; }
+
+        //Services
+
+        private readonly IRoleInterface _roleService;
 
         //Properties
         public string LastName
@@ -89,8 +103,29 @@ namespace ConsultPlanner.ViewModels
         {
             _user = new Users();
             _user.Birthday = DateTime.Now;
+
             AddUserCommand = new RelayCommand(AddUser);
             CancelCommand = new RelayCommand(Cancel);
+
+            _roleService = new RoleService();
+
+            LoadRoles(null);
+        }
+
+        public void LoadRoles(object parameter)
+        {
+            var AllRoles = _roleService.GetAllRoles();
+            Roles = new ObservableCollection<RoleItem>();
+
+            foreach(var role in AllRoles)
+            {
+                Roles.Add(new RoleItem
+                {
+                    ID = role.ID,
+                    Name = role.Name,
+                    IsSelected = false
+                });
+            }
         }
 
         public void AddUser(object parameter)
@@ -107,7 +142,9 @@ namespace ConsultPlanner.ViewModels
                 RegisterDate = DateTime.Now
             };
 
-            MainViewModel.Instance.AddUser(newUser);
+            var selectedRoles = Roles.Where(r => r.IsSelected).Select(r => r.ID).ToList();
+
+            MainViewModel.Instance.AddUser(newUser, selectedRoles);
             Close?.Invoke();
         }
 

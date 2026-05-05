@@ -84,9 +84,9 @@ namespace ConsultPlanner.ViewModels
             Users = new ObservableCollection<Users>(_userService.GetAllUsers());
         }
 
-        public void AddUser(Users user)
+        public void AddUser(Users user, List<int> roles)
         {
-            _userService.AddUser(user);
+            _userService.AddUser(user, roles);
             LoadUsers(null);
         }
         public void DeleteUser(object parameter)

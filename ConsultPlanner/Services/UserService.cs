@@ -11,7 +11,7 @@ namespace ConsultPlanner.Services
     public interface IUserInterface
     {
         List<Users> GetAllUsers();
-        void AddUser(Users user);
+        void AddUser(Users user, List<int> roles);
         void DeleteUser(int id);
     }
 
@@ -27,12 +27,26 @@ namespace ConsultPlanner.Services
             return _context.Users.ToList();
         }
 
-        public void AddUser(Users user)
+        public void AddUser(Users user, List<int> roles)
         {
             try
             {
                 _context.Users.Add(user);
                 _context.SaveChanges();
+
+                if (roles != null && roles.Any())
+                {
+                    foreach (var role in roles) {
+
+                        var userRole = new UserRoles
+                        {
+                            UserID = user.ID,
+                            RoleID = role
+                        };
+                        _context.UserRoles.Add(userRole);
+                    }
+                    _context.SaveChanges();
+                }
             }
             catch (Exception ex)
             {

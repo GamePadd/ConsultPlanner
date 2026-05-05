@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConsultPlanner.Views"
         mc:Ignorable="d"
-        Title="Добавить пользователя" Height="325" Width="500"
+        Title="Добавить пользователя" Height="350" Width="500"
         FontFamily="Segoe UI Light"
         WindowStyle="None"
         Background="#242424"
@@ -114,7 +114,18 @@
 
         <TextBlock Grid.Row="7" Grid.Column = "0" Text="Пароль:" Margin="5" Style="{StaticResource ResourceKey=InputTextView}"/>
         <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding Password}" Margin="5" Style="{StaticResource ResourceKey=Input1}"/>
-        <StackPanel Grid.Row="8" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
+
+        <TextBlock Grid.Row="8" Grid.Column = "0" Text="Роли:" Margin="5" Style="{StaticResource ResourceKey=InputTextView}"/>
+        <ComboBox ItemsSource="{Binding Roles}"  Background="#242424" Margin="5" Foreground="Black" Grid.Row="8" Grid.Column="1">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                              Foreground="Black" Margin="5"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <StackPanel Grid.Row="9" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
             <Button Content="Добавить" Command="{Binding AddUserCommand}" Style="{StaticResource ResourceKey=Button1}"/>
             <Button Content="Отменить" Command="{Binding CancelCommand}" Style="{StaticResource ResourceKey=Button1}"/>
         </StackPanel>
