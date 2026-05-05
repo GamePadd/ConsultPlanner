@@ -6,34 +6,64 @@
         xmlns:local="clr-namespace:ConsultPlanner.Views"
         mc:Ignorable="d"
         Title="Добавить пользователя" Height="325" Width="500"
+        FontFamily="Segoe UI Light"
+        WindowStyle="None"
+        Background="#242424"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
         ResizeMode="NoResize">
     <Window.Resources>
         <Style x:Key="InputTextView" TargetType="TextBlock">
             <Setter Property="FontSize" Value="15"/>
-        </Style>
-        <Style x:Key="FormButton" TargetType="Button">
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Width" Value="150"/>
-            <Setter Property="Height" Value="30"/>
+            <Setter Property="Foreground" Value="White"/>
         </Style>
         <Style x:Key="Button1" TargetType="Button">
-            <Setter Property="Background" Value="Black"/>
-            <Setter Property="Height" Value="30"/>
+            <Setter Property="Background" Value="#242424"/>
+            <Setter Property="Height" Value="35"/>
             <Setter Property="FontSize" Value="15"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="BorderThickness" Value="0.8"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Margin" Value="5 5"/>
-            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5 0"/>
+            <Setter Property="Padding" Value="8"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Foreground" Value="Blue"/>
+                    <Setter Property="Foreground" Value="#474747"/>
                     <Setter Property="TextBlock.TextDecorations" Value="Underline"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="Input1" TargetType="TextBox">
+            <Setter Property="Background" Value="#242424"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style x:Key="DatePicker1" TargetType="DatePicker">
+            <Setter Property="Background" Value="#242424"/>
+        </Style>
+        <Style x:Key="HeaderButton" TargetType="Button">
+            <Setter Property="Width" Value="15"/>
+            <Setter Property="Margin" Value="20 0 0 0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="bdr_main" BorderThickness="0" BorderBrush="Transparent" Background="Transparent">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Content"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bdr_main" Property="Background" Value="#474747"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bdr_main" Property="Background" Value="#474747"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
-    
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness ="0" CornerRadius="0" CaptionHeight="0"/>
+    </WindowChrome.WindowChrome>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -48,31 +78,43 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="190"/>
+            <ColumnDefinition Width="115"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column = "0" Text="Фамилия:" Margin="5" Style="{StaticResource ResourceKey=InputTextView}"/>
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding LastName}" Margin="5"/>
+        <WrapPanel Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="5 0">
+            <TextBlock Text="Добавить пользователя" FontSize="20" Foreground="White"/>
+        </WrapPanel>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="15 10">
+            <Button x:Name="buttonMinimize" Style="{StaticResource ResourceKey=HeaderButton}" Click="buttonMinimize_Click">
+                <Image Source="/Resources/Images/Resize.png"/>
+            </Button>
+            <Button x:Name="buttonClose" Style="{StaticResource ResourceKey=HeaderButton}" Click="buttonClose_Click">
+                <Image Source="/Resources/Images/Exit.png"/>
+            </Button>
+        </StackPanel>
 
-        <TextBlock Grid.Row="1" Grid.Column = "0" Text="Имя:" Margin="5" Style="{StaticResource ResourceKey=InputTextView}"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding FirstName}" Margin="5"/>
+        <TextBlock Grid.Row="1" Grid.Column = "0" Text="Фамилия:" Margin="5" Style="{StaticResource ResourceKey=InputTextView}"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding LastName}" Margin="5" Style="{StaticResource ResourceKey=Input1}"/>
 
-        <TextBlock Grid.Row="2" Grid.Column = "0" Text="Отчество:" Margin="5" Style="{StaticResource ResourceKey=InputTextView}"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Patronymic}" Margin="5"/>
+        <TextBlock Grid.Row="2" Grid.Column = "0" Text="Имя:" Margin="5" Style="{StaticResource ResourceKey=InputTextView}"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding FirstName}" Margin="5" Style="{StaticResource ResourceKey=Input1}"/>
 
-        <TextBlock Grid.Row="3" Grid.Column = "0" Text="Дата рождения:" Margin="5" Style="{StaticResource ResourceKey=InputTextView}"/>
-        <DatePicker Grid.Row="3" Grid.Column="1" SelectedDate="{Binding Birthday}" Margin="5"/>
+        <TextBlock Grid.Row="3" Grid.Column = "0" Text="Отчество:" Margin="5" Style="{StaticResource ResourceKey=InputTextView}"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Patronymic}" Margin="5" Style="{StaticResource ResourceKey=Input1}"/>
 
-        <TextBlock Grid.Row="4" Grid.Column = "0" Text="Телефон:" Margin="5" Style="{StaticResource ResourceKey=InputTextView}"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Phone}" Margin="5"/>
+        <TextBlock Grid.Row="4" Grid.Column = "0" Text="Дата рождения:" Margin="5" Style="{StaticResource ResourceKey=InputTextView}"/>
+        <DatePicker Grid.Row="4" Grid.Column="1" SelectedDate="{Binding Birthday}" Margin="5" Style="{StaticResource ResourceKey=DatePicker1}"/>
 
-        <TextBlock Grid.Row="5" Grid.Column = "0" Text="Почта:" Margin="5" Style="{StaticResource ResourceKey=InputTextView}"/>
-        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Email}" Margin="5"/>
+        <TextBlock Grid.Row="5" Grid.Column = "0" Text="Телефон:" Margin="5" Style="{StaticResource ResourceKey=InputTextView}"/>
+        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Phone}" Margin="5" Style="{StaticResource ResourceKey=Input1}"/>
 
-        <TextBlock Grid.Row="6" Grid.Column = "0" Text="Пароль:" Margin="5" Style="{StaticResource ResourceKey=InputTextView}"/>
-        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Password}" Margin="5"/>
-        <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
+        <TextBlock Grid.Row="6" Grid.Column = "0" Text="Почта:" Margin="5" Style="{StaticResource ResourceKey=InputTextView}"/>
+        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Email}" Margin="5" Style="{StaticResource ResourceKey=Input1}"/>
+
+        <TextBlock Grid.Row="7" Grid.Column = "0" Text="Пароль:" Margin="5" Style="{StaticResource ResourceKey=InputTextView}"/>
+        <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding Password}" Margin="5" Style="{StaticResource ResourceKey=Input1}"/>
+        <StackPanel Grid.Row="8" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
             <Button Content="Добавить" Command="{Binding AddUserCommand}" Style="{StaticResource ResourceKey=Button1}"/>
             <Button Content="Отменить" Command="{Binding CancelCommand}" Style="{StaticResource ResourceKey=Button1}"/>
         </StackPanel>
