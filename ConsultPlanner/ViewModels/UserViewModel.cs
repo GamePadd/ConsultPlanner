@@ -18,6 +18,9 @@ namespace ConsultPlanner.ViewModels
         //Vars
         public Action Close { get; set; }
         private Users _user;
+        private bool _isEditing;
+        private string _dialogTitle;
+        private int _editingUserId;
         public class RoleItem
         {
             public int ID { set; get; }
@@ -32,6 +35,14 @@ namespace ConsultPlanner.ViewModels
         private readonly IRoleInterface _roleService;
 
         //Properties
+        public string DialogTitle
+        {
+            get => _dialogTitle; 
+            set
+            {
+                _dialogTitle = value; OnPropertyChanged(nameof(DialogTitle));
+            }
+        }
         public string LastName
         {
             get => _user.LastName;
@@ -96,56 +107,107 @@ namespace ConsultPlanner.ViewModels
         }
         //Commands
 
-        public ICommand AddUserCommand { get; }
+        public ICommand SaveUserCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public UserViewModel()
+        public UserViewModel(Users user)
         {
-            _user = new Users();
-            _user.Birthday = DateTime.Now;
-
-            AddUserCommand = new RelayCommand(AddUser);
+            SaveUserCommand = new RelayCommand(Save);
             CancelCommand = new RelayCommand(Cancel);
 
             _roleService = new RoleService();
 
-            LoadRoles(null);
+            if (user == null)
+            {
+                _isEditing = false;
+                _user = new Users();
+                _user.Birthday = DateTime.Now;
+                DialogTitle = "Добавить пользователя";
+                LoadRoles(null);
+            }
+            else
+            {
+                DialogTitle = "Редактировать пользователя";
+                _editingUserId = user.ID;
+                _isEditing = true;
+
+                _user = new Users
+                {
+                    ID = user.ID,
+                    LastName = user.LastName,
+                    FirstName = user.FirstName,
+                    Patronymic = user.Patronymic,
+                    Birthday = user.Birthday,
+                    Phone = user.Phone,
+                    Email = user.Email,
+                    RegisterDate = user.RegisterDate,
+                    Password = user.Password
+                };
+
+                var selectedRoles = _roleService.GetAllRolesID(user.ID);
+
+                LoadRoles(selectedRoles);
+            }
         }
 
-        public void LoadRoles(object parameter)
+        public void LoadRoles(List<int> userRolesId = null)
         {
             var AllRoles = _roleService.GetAllRoles();
             Roles = new ObservableCollection<RoleItem>();
 
             foreach(var role in AllRoles)
             {
+                var isSelected = userRolesId != null && userRolesId.Contains(role.ID);
                 Roles.Add(new RoleItem
                 {
                     ID = role.ID,
                     Name = role.Name,
-                    IsSelected = false
+                    IsSelected = isSelected
                 });
             }
         }
 
-        public void AddUser(object parameter)
+        public void Save(object parameter)
         {
-            Users newUser = new Users
+            if (_isEditing)
             {
-                LastName = _user.LastName,
-                FirstName = _user.FirstName,
-                Patronymic = _user.Patronymic,
-                Birthday = _user.Birthday,
-                Phone = _user.Phone,
-                Email = _user.Email,
-                Password = _user.Password,
-                RegisterDate = DateTime.Now
-            };
+                var updatedUser = new Users
+                {
+                    ID = _editingUserId,
+                    LastName = this.LastName,
+                    FirstName = this.FirstName,
+                    Patronymic = this.Patronymic,
+                    Birthday = this.Birthday,
+                    Phone = this.Phone,
+                    Email = this.Email,
+                    Password = this.Password,
+                    RegisterDate = _user.RegisterDate
+                };
 
-            var selectedRoles = Roles.Where(r => r.IsSelected).Select(r => r.ID).ToList();
+                var selectedRoleIds = Roles.Where(r => r.IsSelected).Select(r => r.ID).ToList();
 
-            MainViewModel.Instance.AddUser(newUser, selectedRoles);
-            Close?.Invoke();
+                MainViewModel.Instance.UpdateUser(updatedUser, selectedRoleIds);
+                Close?.Invoke();
+            }
+            else
+            {
+                Users newUser = new Users
+                {
+                    LastName = this.LastName,
+                    FirstName = this.FirstName,
+                    Patronymic = this.Patronymic,
+                    Birthday = this.Birthday,
+                    Phone = this.Phone,
+                    Email = this.Email,
+                    Password = this.Password,
+                    RegisterDate = DateTime.Now
+                };
+
+                var selectedRoles = Roles.Where(r => r.IsSelected).Select(r => r.ID).ToList();
+
+                MainViewModel.Instance.AddUser(newUser, selectedRoles);
+                Close?.Invoke();
+            }
         }
 
         public void Cancel(object parameter)

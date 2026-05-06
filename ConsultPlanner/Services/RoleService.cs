@@ -10,6 +10,7 @@ namespace ConsultPlanner.Services
     public interface IRoleInterface
     {
         List<Roles> GetAllRoles();
+        List<int> GetAllRolesID(int userID);
     }
     public class RoleService : IRoleInterface
     {
@@ -23,6 +24,11 @@ namespace ConsultPlanner.Services
         public List<Roles> GetAllRoles()
         {
             return _context.Roles.ToList();
+        }
+
+        public List<int> GetAllRolesID(int userID)
+        {
+            return _context.UserRoles.Where(r =>  r.UserID == userID).Select(r => r.RoleID).ToList();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using ConsultPlanner.Commands;
 using ConsultPlanner.Models;
 using ConsultPlanner.Services;
+using ConsultPlanner.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -50,6 +51,8 @@ namespace ConsultPlanner.ViewModels
         //Commands
         public ICommand LoadUsersCommand { get; }
         public ICommand DeleteUserCommand { get; }
+        public ICommand EditUserCommand { get; }
+        public ICommand AddUserCommand { get; }
         public ICommand LoadSessionsCommand { get; }
         private MainViewModel()
         {
@@ -57,7 +60,9 @@ namespace ConsultPlanner.ViewModels
             _sessionService = new SessionService();
 
             LoadUsersCommand = new RelayCommand(LoadUsers);
+            EditUserCommand = new RelayCommand(EditUserForm);
             DeleteUserCommand = new RelayCommand(DeleteUser);
+            AddUserCommand = new RelayCommand(AddUserForm);
 
             LoadSessionsCommand = new RelayCommand(LoadSessions);
 
@@ -89,6 +94,12 @@ namespace ConsultPlanner.ViewModels
             _userService.AddUser(user, roles);
             LoadUsers(null);
         }
+
+        public void UpdateUser(Users user, List<int> updatedRoles)
+        {
+            _userService.UpdateUser(user, updatedRoles);
+            LoadUsers(null);
+        }
         public void DeleteUser(object parameter)
         {
             if (parameter is Users user)
@@ -101,6 +112,23 @@ namespace ConsultPlanner.ViewModels
                     _userService.DeleteUser(user.ID);
                     LoadUsers(null);
                 }
+            }
+        }
+
+        //Pages
+
+        private void AddUserForm(object parameter)
+        {
+            UserDialog addUser = new UserDialog();
+            addUser.Show();
+        }
+
+        private void EditUserForm(object parameter)
+        {
+            if (parameter is Users user)
+            {
+                UserDialog editUser = new UserDialog(user);
+                editUser.Show();
             }
         }
 

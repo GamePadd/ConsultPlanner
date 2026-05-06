@@ -50,12 +50,6 @@ namespace ConsultPlanner.Views
 
         }
 
-        private void AddUserForm(object sender, RoutedEventArgs e)
-        {
-            AddUser addUser = new AddUser();
-            addUser.Show();
-        }
-
         private void buttonMinimize_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;

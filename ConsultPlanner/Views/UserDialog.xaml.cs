@@ -12,18 +12,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ConsultPlanner.Models;
 
 namespace ConsultPlanner.Views
 {
     /// <summary>
     /// Логика взаимодействия для AddUser.xaml
     /// </summary>
-    public partial class AddUser : Window
+    public partial class UserDialog : Window
     {
-        public AddUser()
+        public UserDialog(Users user = null)
         {
             InitializeComponent();
-            UserViewModel viewModel = new UserViewModel();
+            UserViewModel viewModel = new UserViewModel(user);
             viewModel.Close = () => { this.Close(); };
             DataContext = viewModel;
         }

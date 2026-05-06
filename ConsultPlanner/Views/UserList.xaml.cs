@@ -25,11 +25,5 @@ namespace ConsultPlanner.Views
             InitializeComponent();
             DataContext = ViewModels.MainViewModel.Instance;
         }
-
-        private void AddUserForm(object sender, RoutedEventArgs e)
-        {
-            AddUser addUser = new AddUser();
-            addUser.Show();
-        }
     }
 }
