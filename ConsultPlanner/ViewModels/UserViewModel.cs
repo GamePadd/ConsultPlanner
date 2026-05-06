@@ -150,6 +150,33 @@ namespace ConsultPlanner.ViewModels
             }
         }
 
+        public bool Validate()
+        {
+            List<string> errors = new List<string>();
+
+            if (string.IsNullOrWhiteSpace(LastName))
+                errors.Add("Фамилия обязательна");
+            if (string.IsNullOrWhiteSpace(FirstName))
+                errors.Add("Имя обязательно");
+            if (string.IsNullOrWhiteSpace(Email))
+                errors.Add("Почта обязательна");
+            if (!string.IsNullOrWhiteSpace(Email) && (!Email.Contains("@") || !Email.Contains(".")))
+                errors.Add("Некорректная почта");
+            if (string.IsNullOrWhiteSpace(Phone))
+                errors.Add("Телефон обязателен");
+            if (string.IsNullOrWhiteSpace(Password))
+                errors.Add("Пароль обязателен");
+            if (!string.IsNullOrWhiteSpace(Password) && (Password != null && Password.Length < 3))
+                errors.Add("Длина пароля должна быть не менее 3х символом");
+
+            string errorMessage = errors.Count > 0 ? string.Join("\n", errors) : "";
+
+            if (errors.Count != 0) {
+                MessageBox.Show(errorMessage, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            return errors.Count == 0;
+        }
         public void LoadRoles(List<int> userRolesId = null)
         {
             var AllRoles = _roleService.GetAllRoles();
@@ -184,10 +211,20 @@ namespace ConsultPlanner.ViewModels
                     RegisterDate = _user.RegisterDate
                 };
 
+                if (string.IsNullOrEmpty(updatedUser.Patronymic))
+                {
+                    updatedUser.Patronymic = "Нет отчества";
+                }
+
                 var selectedRoleIds = Roles.Where(r => r.IsSelected).Select(r => r.ID).ToList();
 
-                MainViewModel.Instance.UpdateUser(updatedUser, selectedRoleIds);
-                Close?.Invoke();
+                bool isCorrect = Validate();
+
+                if (isCorrect)
+                {
+                    MainViewModel.Instance.UpdateUser(updatedUser, selectedRoleIds);
+                    Close?.Invoke();
+                }
             }
             else
             {
@@ -203,10 +240,20 @@ namespace ConsultPlanner.ViewModels
                     RegisterDate = DateTime.Now
                 };
 
+                if (string.IsNullOrEmpty(newUser.Patronymic))
+                {
+                    newUser.Patronymic = "Нет отчества";
+                }
+
                 var selectedRoles = Roles.Where(r => r.IsSelected).Select(r => r.ID).ToList();
 
-                MainViewModel.Instance.AddUser(newUser, selectedRoles);
-                Close?.Invoke();
+                bool isCorrect = Validate();
+
+                if (isCorrect)
+                {
+                    MainViewModel.Instance.AddUser(newUser, selectedRoles);
+                    Close?.Invoke();
+                }
             }
         }
 
