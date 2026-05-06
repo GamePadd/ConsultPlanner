@@ -69,21 +69,21 @@ namespace ConsultPlanner.Services
                     existingUser.Phone = user.Phone;
                     existingUser.Email = user.Email;
                     existingUser.Password = user.Password;
-                }
 
-                if (roles != null)
-                {
-                    var oldRoles = _context.UserRoles.Where(r => r.UserID == user.ID);
-                    _context.UserRoles.RemoveRange(oldRoles);
-
-                    foreach (var role in roles)
+                    if (roles != null)
                     {
-                        var userRole = new UserRoles
+                        var oldRoles = _context.UserRoles.Where(r => r.UserID == user.ID);
+                        _context.UserRoles.RemoveRange(oldRoles);
+
+                        foreach (var role in roles)
                         {
-                            UserID = user.ID,
-                            RoleID = role
-                        };
-                        _context.UserRoles.Add(userRole);
+                            var userRole = new UserRoles
+                            {
+                                UserID = user.ID,
+                                RoleID = role
+                            };
+                            _context.UserRoles.Add(userRole);
+                        }
                     }
                 }
                 _context.SaveChanges();
