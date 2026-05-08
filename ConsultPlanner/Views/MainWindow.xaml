@@ -9,7 +9,7 @@
         WindowStyle="None"
         ResizeMode="NoResize"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        Title="ConsultPlanner" Height="450" Width="800" Background="#242424">
+        Title="ConsultPlanner" Height="540" Width="960" Background="#242424">
     <Window.Resources>
         <Style x:Key="Button1" TargetType="Button">
             <Setter Property="Background" Value="#242424"/>
@@ -49,53 +49,53 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <WindowChrome.WindowChrome>
-        <WindowChrome GlassFrameThickness ="0" CornerRadius="0" CaptionHeight="0"/>
-    </WindowChrome.WindowChrome>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="45"/>
-            <RowDefinition Height="45"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    
+    <Border BorderBrush="#6C49B8" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <WrapPanel Grid.Row="0" VerticalAlignment="Center" Margin="20 0">
-            <TextBlock Text="ConsultPlanner" FontSize="20" Foreground="White"/>
-        </WrapPanel>
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="15 10">
-            <Button x:Name="buttonMinimize" Style="{StaticResource ResourceKey=HeaderButton}" Click="buttonMinimize_Click">
-                <Image Source="/Resources/Images/Resize.png"/>
-            </Button>
-            <Button x:Name="buttonClose" Style="{StaticResource ResourceKey=HeaderButton}" Click="buttonClose_Click">
-                <Image Source="/Resources/Images/Exit.png"/>
-            </Button>
-        </StackPanel>
-        
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto" Margin="15 0">
-            <StackPanel Orientation="Horizontal">
-                <Button Content="Пользователи" 
-                        Style="{StaticResource ResourceKey=Button1}"
-                        Click="OpenUsersPage"/>
-                <Button Content="Консультанты" 
-                        Style="{StaticResource ResourceKey=Button1}"
-                        Click="OpenConsPage"/>
-                <Button Content="Роли" 
-                        Style="{StaticResource ResourceKey=Button1}"
-                        Click="OpenRolesPage"/>
-                <Button Content="Сессии" 
-                        Style="{StaticResource ResourceKey=Button1}"
-                        Click="OpenSessionsPage"/>
-                <Button Content="Темы" 
-                        Style="{StaticResource ResourceKey=Button1}"
-                        Click="OpenTopicsPage"/>
+            <WrapPanel Grid.Row="0" VerticalAlignment="Center" Margin="20 0">
+                <TextBlock Text="ConsultPlanner" FontSize="20" Foreground="White"/>
+            </WrapPanel>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="15 10">
+                <Button x:Name="buttonMinimize" Style="{StaticResource ResourceKey=HeaderButton}" Click="buttonMinimize_Click">
+                    <Image Source="/Resources/Images/Resize.png"/>
+                </Button>
+                <Button x:Name="buttonClose" Style="{StaticResource ResourceKey=HeaderButton}" Click="buttonClose_Click">
+                    <Image Source="/Resources/Images/Exit.png"/>
+                </Button>
             </StackPanel>
-        </ScrollViewer>
+        
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto" Margin="15 0">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Пользователи" 
+                            Style="{StaticResource ResourceKey=Button1}"
+                            Click="OpenUsersPage"/>
+                    <Button Content="Консультанты" 
+                            Style="{StaticResource ResourceKey=Button1}"
+                            Click="OpenConsPage"/>
+                    <Button Content="Роли" 
+                            Style="{StaticResource ResourceKey=Button1}"
+                            Click="OpenRolesPage"/>
+                    <Button Content="Сессии" 
+                            Style="{StaticResource ResourceKey=Button1}"
+                            Click="OpenSessionsPage"/>
+                    <Button Content="Темы" 
+                            Style="{StaticResource ResourceKey=Button1}"
+                            Click="OpenTopicsPage"/>
+                </StackPanel>
+            </ScrollViewer>
 
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"  Grid.Row="2" Margin="15 0 15 15">
+            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"  Grid.Row="2" Margin="15 0 15 15">
 
-        </Frame>
-    </Grid>
+            </Frame>
+        </Grid>
+    </Border>
 </Window>

@@ -7,34 +7,35 @@
       mc:Ignorable="d" 
       Background="#242424"
       FontFamily="Segoe UI Light"
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="540" d:DesignWidth="960"
       Title="UserList">
     <Page.Resources>
         <Style x:Key="TableCell" TargetType="TextBlock">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Padding" Value="5"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="FontSize" Value="13"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
         </Style>
-        
+
         <Style x:Key="TableElementBlack" TargetType="TextBlock" BasedOn="{StaticResource TableCell}">
-            <Setter Property="Width" Value="84"/>
             <Setter Property="Background" Value="#303030"/>
         </Style>
         <Style x:Key="TableElementWhite" TargetType="TextBlock" BasedOn="{StaticResource TableCell}">
-            <Setter Property="Width" Value="85"/>
             <Setter Property="Background" Value="#4c4c4c"/>
         </Style>
         <Style x:Key="StackElementWhite" TargetType="StackPanel">
+            <Setter Property="Width" Value="100"/>
             <Setter Property="Background" Value="#4c4c4c"/>
         </Style>
         <Style x:Key="TableButton" TargetType="Button">
             <Setter Property="Background" Value="#303030"/>
             <Setter Property="BorderBrush" Value="White"/>
             <Setter Property="BorderThickness" Value="0.6"/>
-            <Setter Property="Width" Value="35"/>
-            <Setter Property="Height" Value="15"/>
-            <Setter Property="Margin" Value="2 0"/>
+            <Setter Property="Width" Value="46"/>
+            <Setter Property="Height" Value="19"/>
+            <Setter Property="Margin" Value="3 0 0 0"/>
         </Style>
         <Style x:Key="Button1" TargetType="Button">
             <Setter Property="Background" Value="#242424"/>
@@ -55,15 +56,37 @@
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="5"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Button Grid.Row="1" Style="{StaticResource ResourceKey=Button1}" Content="Добавить" Command="{Binding DataContext.AddUserCommand, RelativeSource={RelativeSource AncestorType=Page}}"/>
+        <Button Grid.Row="3" Style="{StaticResource ResourceKey=Button1}" Content="Добавить" Command="{Binding DataContext.AddUserCommand, RelativeSource={RelativeSource AncestorType=Page}}"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="6.5 5">
+            <TextBlock Text="Фамилия" Style="{StaticResource ResourceKey=TableElementWhite}"/>
+            <TextBlock Text="Имя" Style="{StaticResource ResourceKey=TableElementBlack}"/>
+            <TextBlock Text="Отчество" Style="{StaticResource ResourceKey=TableElementWhite}"/>
+            <TextBlock Text="Дата рождения" Style="{StaticResource ResourceKey=TableElementBlack}"/>
+            <TextBlock Text="Телефон" Style="{StaticResource ResourceKey=TableElementWhite}"/>
+            <TextBlock Text="Почта" Style="{StaticResource ResourceKey=TableElementBlack}"/>
+            <TextBlock Text="Дата регистрации" Style="{StaticResource ResourceKey=TableElementWhite}"/>
+            <TextBlock Text="Пароль" Style="{StaticResource ResourceKey=TableElementBlack}"/>
+            <TextBlock Text="Управление" Style="{StaticResource ResourceKey=TableElementWhite}"/>
+        </StackPanel>
+
+        <Separator Grid.Row="1" Margin="5 0"/>
+
         <ListView ItemsSource="{Binding Users, UpdateSourceTrigger=PropertyChanged}"
                   d:ItemsSource="{d:SampleData ItemCount=3}"
                   Background="#242424" BorderThickness="0"
-                  Grid.Row="0"
+                  Grid.Row="2"
+                  Margin="0 1 0 0"
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+            <ListView.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding OpenItemCommand}" CommandParameter="{Binding}"/>
+            </ListView.InputBindings>
+            
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -75,8 +98,8 @@
                         <TextBlock Text="{Binding Email}" Style="{StaticResource ResourceKey=TableElementBlack}"/>
                         <TextBlock Text="{Binding RegisterDate}" Style="{StaticResource ResourceKey=TableElementWhite}"/>
                         <TextBlock Text="{Binding Password}" Style="{StaticResource ResourceKey=TableElementBlack}"/>
-                        <Border Padding="2" Background="#4c4c4c">
-                            <StackPanel Orientation="Horizontal" Style="{StaticResource ResourceKey=StackElementWhite}">
+                        <Border Background="#4c4c4c">
+                            <StackPanel Orientation="Horizontal" Style="{StaticResource ResourceKey=StackElementWhite}" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Button Style="{StaticResource ResourceKey=TableButton}" Command="{Binding DataContext.EditUserCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding}">
                                     <Image Source="../Resources/Images/Edit.png"/>
                                 </Button>
