@@ -10,32 +10,13 @@
       d:DesignHeight="540" d:DesignWidth="960"
       Title="UserList">
     <Page.Resources>
-        <Style x:Key="TableCell" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Padding" Value="5"/>
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
-        </Style>
-
-        <Style x:Key="TableElementBlack" TargetType="TextBlock" BasedOn="{StaticResource TableCell}">
-            <Setter Property="Background" Value="#303030"/>
-        </Style>
-        <Style x:Key="TableElementWhite" TargetType="TextBlock" BasedOn="{StaticResource TableCell}">
-            <Setter Property="Background" Value="#4c4c4c"/>
-        </Style>
-        <Style x:Key="StackElementWhite" TargetType="StackPanel">
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="Background" Value="#4c4c4c"/>
-        </Style>
         <Style x:Key="TableButton" TargetType="Button">
             <Setter Property="Background" Value="#303030"/>
             <Setter Property="BorderBrush" Value="White"/>
             <Setter Property="BorderThickness" Value="0.6"/>
             <Setter Property="Width" Value="46"/>
             <Setter Property="Height" Value="19"/>
-            <Setter Property="Margin" Value="3 0 0 0"/>
+            <Setter Property="Margin" Value="0"/>
         </Style>
         <Style x:Key="Button1" TargetType="Button">
             <Setter Property="Background" Value="#242424"/>
@@ -56,50 +37,60 @@
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="35"/>
-            <RowDefinition Height="5"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Button Grid.Row="3" Style="{StaticResource ResourceKey=Button1}" Content="Добавить" Command="{Binding DataContext.AddUserCommand, RelativeSource={RelativeSource AncestorType=Page}}"/>
-
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="6.5 5">
-            <TextBlock Text="Фамилия" Style="{StaticResource ResourceKey=TableElementWhite}"/>
-            <TextBlock Text="Имя" Style="{StaticResource ResourceKey=TableElementBlack}"/>
-            <TextBlock Text="Отчество" Style="{StaticResource ResourceKey=TableElementWhite}"/>
-            <TextBlock Text="Дата рождения" Style="{StaticResource ResourceKey=TableElementBlack}"/>
-            <TextBlock Text="Телефон" Style="{StaticResource ResourceKey=TableElementWhite}"/>
-            <TextBlock Text="Почта" Style="{StaticResource ResourceKey=TableElementBlack}"/>
-            <TextBlock Text="Дата регистрации" Style="{StaticResource ResourceKey=TableElementWhite}"/>
-            <TextBlock Text="Пароль" Style="{StaticResource ResourceKey=TableElementBlack}"/>
-            <TextBlock Text="Управление" Style="{StaticResource ResourceKey=TableElementWhite}"/>
-        </StackPanel>
-
-        <Separator Grid.Row="1" Margin="5 0"/>
-
-        <ListView ItemsSource="{Binding Users, UpdateSourceTrigger=PropertyChanged}"
+        <DataGrid ItemsSource="{Binding Users, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0"
                   d:ItemsSource="{d:SampleData ItemCount=3}"
-                  Background="#242424" BorderThickness="0"
-                  Grid.Row="2"
-                  Margin="0 1 0 0"
-                  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-            <ListView.InputBindings>
-                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding OpenItemCommand}" CommandParameter="{Binding}"/>
-            </ListView.InputBindings>
-            
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding LastName}" Style="{StaticResource ResourceKey=TableElementWhite}"/>
-                        <TextBlock Text="{Binding FirstName}" Style="{StaticResource ResourceKey=TableElementBlack}"/>
-                        <TextBlock Text="{Binding Patronymic}" Style="{StaticResource ResourceKey=TableElementWhite}"/>
-                        <TextBlock Text="{Binding Birthday}" Style="{StaticResource ResourceKey=TableElementBlack}"/>
-                        <TextBlock Text="{Binding Phone}" Style="{StaticResource ResourceKey=TableElementWhite}"/>
-                        <TextBlock Text="{Binding Email}" Style="{StaticResource ResourceKey=TableElementBlack}"/>
-                        <TextBlock Text="{Binding RegisterDate}" Style="{StaticResource ResourceKey=TableElementWhite}"/>
-                        <TextBlock Text="{Binding Password}" Style="{StaticResource ResourceKey=TableElementBlack}"/>
-                        <Border Background="#4c4c4c">
-                            <StackPanel Orientation="Horizontal" Style="{StaticResource ResourceKey=StackElementWhite}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                  Margin="5"
+                  AutoGenerateColumns="False"
+                  Background="#242424" 
+                  BorderThickness="0"
+                  RowHeight="30"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserResizeRows="True"
+                  CanUserResizeColumns="False"
+                  CanUserReorderColumns="False"
+                  CanUserSortColumns="True"
+                  VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Hidden"
+                  RowBackground="#303030"
+                  RowHeaderWidth="0"
+                  AlternatingRowBackground="#4c4c4c"
+                  FontSize="15"
+                  Foreground="White">
+            <DataGrid.Resources>
+                <Style x:Key="ColumnHeader" TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#4c4c4c"/>
+                    <Setter Property="BorderThickness" Value="0 2"/>
+                    <Setter Property="FontSize" Value="13"/>
+                    <Setter Property="BorderBrush" Value="Black" />
+                    <Setter Property="BorderThickness" Value="0 1 1 1"/>
+                    <Setter Property="Height" Value="30"/>
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="FontFamily" Value="Segoe UI Light"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.ColumnHeaderStyle>
+                <StaticResource ResourceKey="ColumnHeader"/>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}" IsReadOnly="True" Width="30"/>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Дата рождения" Binding="{Binding Birthday, StringFormat={}{0:dd/MM/yyyy}}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Почта" Binding="{Binding Email}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Дата рег." Binding="{Binding RegisterDate}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Пароль" Binding="{Binding Password}" IsReadOnly="True" Width="*"/>
+                <DataGridTemplateColumn CanUserSort="False" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Button Style="{StaticResource ResourceKey=TableButton}" Command="{Binding DataContext.EditUserCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding}">
                                     <Image Source="../Resources/Images/Edit.png"/>
                                 </Button>
@@ -107,10 +98,11 @@
                                     <Image Source="../Resources/Images/Exit.png"/>
                                 </Button>
                             </StackPanel>
-                        </Border>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Grid.Row="1" Style="{StaticResource ResourceKey=Button1}" Content="Добавить" Command="{Binding DataContext.AddUserCommand, RelativeSource={RelativeSource AncestorType=Page}}"/>
     </Grid>
 </Page>
