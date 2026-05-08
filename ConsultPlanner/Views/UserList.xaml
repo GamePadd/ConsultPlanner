@@ -14,8 +14,8 @@
             <Setter Property="Background" Value="#303030"/>
             <Setter Property="BorderBrush" Value="White"/>
             <Setter Property="BorderThickness" Value="0.6"/>
-            <Setter Property="Width" Value="46"/>
-            <Setter Property="Height" Value="19"/>
+            <Setter Property="Width" Value="22"/>
+            <Setter Property="Height" Value="22"/>
             <Setter Property="Margin" Value="0"/>
         </Style>
         <Style x:Key="Button1" TargetType="Button">
@@ -46,11 +46,11 @@
                   AutoGenerateColumns="False"
                   Background="#242424" 
                   BorderThickness="0"
-                  RowHeight="30"
+                  RowHeight="35"
                   CanUserAddRows="False"
                   CanUserDeleteRows="False"
-                  CanUserResizeRows="True"
-                  CanUserResizeColumns="False"
+                  CanUserResizeRows="False"
+                  CanUserResizeColumns="True"
                   CanUserReorderColumns="False"
                   CanUserSortColumns="True"
                   VerticalScrollBarVisibility="Auto"
@@ -67,7 +67,7 @@
                     <Setter Property="FontSize" Value="13"/>
                     <Setter Property="BorderBrush" Value="Black" />
                     <Setter Property="BorderThickness" Value="0 1 1 1"/>
-                    <Setter Property="Height" Value="30"/>
+                    <Setter Property="Height" Value="35"/>
                     <Setter Property="Padding" Value="0"/>
                     <Setter Property="FontFamily" Value="Segoe UI Light"/>
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
