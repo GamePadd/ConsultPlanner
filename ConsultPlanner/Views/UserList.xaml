@@ -14,8 +14,8 @@
             <Setter Property="Background" Value="#303030"/>
             <Setter Property="BorderBrush" Value="White"/>
             <Setter Property="BorderThickness" Value="0.6"/>
-            <Setter Property="Width" Value="22"/>
-            <Setter Property="Height" Value="22"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="19"/>
             <Setter Property="Margin" Value="0"/>
         </Style>
         <Style x:Key="Button1" TargetType="Button">
@@ -87,7 +87,7 @@
                 <DataGridTextColumn Header="Почта" Binding="{Binding Email}" IsReadOnly="True" Width="*"/>
                 <DataGridTextColumn Header="Дата рег." Binding="{Binding RegisterDate}" IsReadOnly="True" Width="*"/>
                 <DataGridTextColumn Header="Пароль" Binding="{Binding Password}" IsReadOnly="True" Width="*"/>
-                <DataGridTemplateColumn CanUserSort="False" Width="*">
+                <DataGridTemplateColumn Header="Управление" CanUserSort="False" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
