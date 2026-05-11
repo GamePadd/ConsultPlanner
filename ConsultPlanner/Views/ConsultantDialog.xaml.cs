@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ConsultPlanner.Models;
+using ConsultPlanner.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,46 +12,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ConsultPlanner.Views
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для ConsultantDialog.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ConsultantDialog : Window
     {
-        public MainWindow()
+        public ConsultantDialog(Consultants consultant = null)
         {
             InitializeComponent();
+            ConsultantViewModel viewModel = new ConsultantViewModel(consultant);
+            viewModel.Close = () => { this.Close(); };
+            DataContext = viewModel;
         }
-
-        private void OpenUsersPage(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Navigate(new UserList());
-        }
-
-        private void OpenConsPage(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Navigate(new ConsultantList());
-        }
-
-        private void OpenRolesPage(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void OpenSessionsPage(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Navigate(new SessionList());
-        }
-
-        private void OpenTopicsPage(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void buttonMinimize_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;

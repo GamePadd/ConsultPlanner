@@ -68,10 +68,18 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Services\ConsultantService.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\SessionService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="ViewModels\ConsultantViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="Views\ConsultantDialog.xaml.cs">
+      <DependentUpon>ConsultantDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConsultantList.xaml.cs">
+      <DependentUpon>ConsultantList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserDialog.xaml.cs">
       <DependentUpon>UserDialog.xaml</DependentUpon>
     </Compile>
@@ -82,6 +90,14 @@
       <DependentUpon>UserList.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Page Include="Views\ConsultantDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ConsultantList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
