@@ -113,8 +113,8 @@ namespace ConsultPlanner.ViewModels
             {
                 if (parameter is Consultants consultants)
                 {
-                    //UserDialog editUser = new UserDialog(user);
-                    //editUser.Show();
+                    ConsultantDialog editConsultant = new ConsultantDialog(consultants);
+                    editConsultant.Show();
                 }
             });
 
@@ -181,6 +181,18 @@ namespace ConsultPlanner.ViewModels
         }
 
         //Consultants
+
+        public void AddConsultant(Consultants consultant, List<int> topics)
+        {
+            _consultantService.AddConsultant(consultant, topics);
+            LoadConsultantsCommand.Execute(null);
+        }
+
+        public void UpdateConsultant(Consultants consultant, List<int> updatedTopics)
+        {
+            _consultantService.UpdateConsultant(consultant, updatedTopics);
+            LoadConsultantsCommand.Execute(null);
+        }
 
         //Users
 

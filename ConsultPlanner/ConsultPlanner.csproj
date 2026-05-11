@@ -71,6 +71,7 @@
     <Compile Include="Services\ConsultantService.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\SessionService.cs" />
+    <Compile Include="Services\TopicService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="ViewModels\ConsultantViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />

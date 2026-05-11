@@ -13,6 +13,8 @@ namespace ConsultPlanner.Services
     {
         List<Consultants> GetAllConsultants();
         List<Consultants> GetAllConsultantsWithNames();
+        void AddConsultant(Consultants consultant, List<int> topics);
+        void UpdateConsultant(Consultants consultant, List<int> topics);
         void DeleteConsultant(int id);
     }
     public class ConsultantService : IConsultantService
@@ -42,6 +44,67 @@ namespace ConsultPlanner.Services
                     _context.Consultants.Remove(consultant);
                     _context.SaveChanges();
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public void AddConsultant(Consultants consultant, List<int> topics)
+        {
+            try
+            {
+                _context.Consultants.Add(consultant);
+                _context.SaveChanges();
+
+                if (topics != null)
+                {
+                    foreach(var topic in topics)
+                    {
+                        var consTopic = new ConsultantTopics
+                        {
+                            ConsultantID = consultant.ID,
+                            TopicID = topic
+                        };
+                        _context.ConsultantTopics.Add(consTopic);
+                    }
+                    _context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void UpdateConsultant(Consultants consultant, List<int> topics)
+        {
+            try
+            {
+                var existingConsultant = _context.Consultants.Find(consultant.ID);
+                if (existingConsultant != null)
+                {
+                    existingConsultant.UserID = consultant.UserID;
+                    existingConsultant.Description = consultant.Description;
+                    existingConsultant.Experience = consultant.Experience;
+
+                    if (topics != null)
+                    {
+                        var oldTopics = _context.ConsultantTopics.Where(i => i.ConsultantID == consultant.ID);
+                        _context.ConsultantTopics.RemoveRange(oldTopics);
+
+                        foreach (var topic in topics)
+                        {
+                            var consTopic = new ConsultantTopics
+                            {
+                                ConsultantID = consultant.ID,
+                                TopicID = topic
+                            };
+                            _context.ConsultantTopics.Add(consTopic);
+                        }
+                    }
+                }
+                _context.SaveChanges();
             }
             catch (Exception ex)
             {

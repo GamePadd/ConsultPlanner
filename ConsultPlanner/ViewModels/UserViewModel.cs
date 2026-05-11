@@ -198,59 +198,57 @@ namespace ConsultPlanner.ViewModels
         {
             if (_isEditing)
             {
-                var updatedUser = new Users
-                {
-                    ID = _editingUserId,
-                    LastName = this.LastName,
-                    FirstName = this.FirstName,
-                    Patronymic = this.Patronymic,
-                    Birthday = this.Birthday,
-                    Phone = this.Phone,
-                    Email = this.Email,
-                    Password = this.Password,
-                    RegisterDate = _user.RegisterDate
-                };
-
-                if (string.IsNullOrEmpty(updatedUser.Patronymic))
-                {
-                    updatedUser.Patronymic = "Нет отчества";
-                }
-
-                var selectedRoleIds = Roles.Where(r => r.IsSelected).Select(r => r.ID).ToList();
-
                 bool isCorrect = Validate();
 
                 if (isCorrect)
                 {
+                    var updatedUser = new Users
+                    {
+                        ID = _editingUserId,
+                        LastName = this.LastName,
+                        FirstName = this.FirstName,
+                        Patronymic = this.Patronymic,
+                        Birthday = this.Birthday,
+                        Phone = this.Phone,
+                        Email = this.Email,
+                        Password = this.Password,
+                        RegisterDate = _user.RegisterDate
+                    };
+
+                    if (string.IsNullOrEmpty(updatedUser.Patronymic))
+                    {
+                        updatedUser.Patronymic = "Нет отчества";
+                    }
+
+                    var selectedRoleIds = Roles.Where(r => r.IsSelected).Select(r => r.ID).ToList();
                     MainViewModel.Instance.UpdateUser(updatedUser, selectedRoleIds);
                     Close?.Invoke();
                 }
             }
             else
             {
-                Users newUser = new Users
-                {
-                    LastName = this.LastName,
-                    FirstName = this.FirstName,
-                    Patronymic = this.Patronymic,
-                    Birthday = this.Birthday,
-                    Phone = this.Phone,
-                    Email = this.Email,
-                    Password = this.Password,
-                    RegisterDate = DateTime.Now
-                };
-
-                if (string.IsNullOrEmpty(newUser.Patronymic))
-                {
-                    newUser.Patronymic = "Нет отчества";
-                }
-
-                var selectedRoles = Roles.Where(r => r.IsSelected).Select(r => r.ID).ToList();
-
                 bool isCorrect = Validate();
 
                 if (isCorrect)
                 {
+                    Users newUser = new Users
+                    {
+                        LastName = this.LastName,
+                        FirstName = this.FirstName,
+                        Patronymic = this.Patronymic,
+                        Birthday = this.Birthday,
+                        Phone = this.Phone,
+                        Email = this.Email,
+                        Password = this.Password,
+                        RegisterDate = DateTime.Now
+                    };
+
+                    if (string.IsNullOrEmpty(newUser.Patronymic))
+                    {
+                        newUser.Patronymic = "Нет отчества";
+                    }
+
+                    var selectedRoles = Roles.Where(r => r.IsSelected).Select(r => r.ID).ToList();
                     MainViewModel.Instance.AddUser(newUser, selectedRoles);
                     Close?.Invoke();
                 }
