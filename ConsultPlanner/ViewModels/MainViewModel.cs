@@ -186,7 +186,11 @@ namespace ConsultPlanner.ViewModels
             });
 
             EditRequestCommand = new RelayCommand((object parameter) => {
-
+                if (parameter is ConsultationRequests request)
+                {
+                    RequestDialog requestDialog = new RequestDialog(request);
+                    requestDialog.Show();
+                }
             });
 
             //Delete Commands
@@ -220,7 +224,17 @@ namespace ConsultPlanner.ViewModels
             });
 
             DeleteRequestCommand = new RelayCommand((object parameter) => {
+                if (parameter is ConsultationRequests request)
+                {
+                    var result = MessageBox.Show($"Удалить запрос от {request.Users.LastName}?",
+                        "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        _requestService.DeleteRequest(request.ID);
+                        LoadRequestCommand.Execute(null);
+                    }
+                }
             });
 
             //Add Commands
@@ -238,7 +252,8 @@ namespace ConsultPlanner.ViewModels
             });
 
             AddRequestCommand = new RelayCommand((object parameter) => {
-
+                RequestDialog addRequest = new RequestDialog();
+                addRequest.Show();
             });
 
             LoadUsersCommand.Execute(null);

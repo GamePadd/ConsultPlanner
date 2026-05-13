@@ -12,6 +12,9 @@ namespace ConsultPlanner.Services
     {
         List<ConsultationRequests> GetAllRequests();
         List<ConsultationRequests> GetAllRequestsWithNames();
+        void AddRequest(ConsultationRequests request);
+        void UpdateRequest(ConsultationRequests request);
+        void DeleteRequest(int requestID);
     }
     public class RequestService : IRequestInterface
     {
@@ -30,6 +33,19 @@ namespace ConsultPlanner.Services
         public List<ConsultationRequests> GetAllRequestsWithNames()
         {
             return _context.ConsultationRequests.Include(u => u.Users).Include(c => c.Consultants).Include(cu => cu.Consultants.Users).ToList();
+        }
+
+        public void AddRequest(ConsultationRequests request)
+        {
+
+        }
+        public void UpdateRequest(ConsultationRequests request)
+        {
+
+        }
+        public void DeleteRequest(int requestID)
+        {
+
         }
     }
 }
