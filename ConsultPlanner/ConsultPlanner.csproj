@@ -69,6 +69,9 @@
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Services\ConsultantService.cs" />
+    <Compile Include="Services\FeedbackService.cs" />
+    <Compile Include="Services\MessageService.cs" />
+    <Compile Include="Services\RequestService.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\SessionService.cs" />
     <Compile Include="Services\TopicService.cs" />

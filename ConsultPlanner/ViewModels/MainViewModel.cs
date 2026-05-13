@@ -17,12 +17,68 @@ namespace ConsultPlanner.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         private static MainViewModel _instance;
+
         //Private Vars
-        ObservableCollection<Users> _users;
-        ObservableCollection<Sessions> _sessions;
-        ObservableCollection<Consultants> _consultants;
+        private ObservableCollection<Users> _users;
+        private ObservableCollection<Sessions> _sessions;
+        private ObservableCollection<Consultants> _consultants;
+        private ObservableCollection<ConsultationRequests> _consultationRequest;
+        private ObservableCollection<SessionMessages> _sessionMessages;
+        private ObservableCollection<Feedbacks> _feedbacks;
+        private ObservableCollection<Topics> _topics;
+        private ObservableCollection<Roles> _roles;
 
         //Properties
+
+        public ObservableCollection<Roles> Roles
+        {
+            get { return _roles; }
+            set
+            {
+                _roles = value;
+                OnPropertyChanged(nameof(Roles));
+            }
+        }
+
+        public ObservableCollection<Topics> Topics
+        {
+            get { return _topics; }
+            set
+            {
+                _topics = value;
+                OnPropertyChanged(nameof(Topics));
+            }
+        }
+
+        public ObservableCollection<Feedbacks> Feedbacks
+        {
+            get { return _feedbacks; }
+            set
+            {
+                _feedbacks = value;
+                OnPropertyChanged(nameof(Feedbacks));
+            }
+        }
+
+        public ObservableCollection<SessionMessages> SessionsMessages
+        {
+            get { return _sessionMessages; }
+            set
+            {
+                _sessionMessages = value;
+                OnPropertyChanged(nameof(SessionsMessages));
+            }
+        }
+
+        public ObservableCollection<ConsultationRequests> ConsultationRequests
+        {
+            get { return _consultationRequest; }
+            set
+            {
+                _consultationRequest = value;
+                OnPropertyChanged(nameof(ConsultationRequests));
+            }
+        }
 
         public ObservableCollection<Consultants> Consultants
         {
@@ -58,29 +114,35 @@ namespace ConsultPlanner.ViewModels
         private readonly IUserInterface _userService;
         private readonly ISessionInterface _sessionService;
         private readonly IConsultantService _consultantService;
-
-        public IUserInterface UserInterface { get { return _userService; } }
-        public ISessionInterface SessionsInterface { get { return _sessionService; } }
+        private readonly IRequestInterface _requestService;
 
         //Commands
+        //Load
         public ICommand LoadUsersCommand { get; }
         public ICommand LoadSessionsCommand { get; }
         public ICommand LoadConsultantsCommand { get; }
+        public ICommand LoadRequestCommand { get; }
 
+        //Delete
         public ICommand DeleteUserCommand { get; }
         public ICommand DeleteConsultantCommand { get; }
+        public ICommand DeleteRequestCommand { get; }
 
+        //Edit
         public ICommand EditUserCommand { get; }
         public ICommand EditConsultantCommand { get; }
-
+        public ICommand EditRequestCommand { get; }
+        //Add
         public ICommand AddUserCommand { get; }
         public ICommand AddConsultantCommand { get; }
+        public ICommand AddRequestCommand { get; }
 
         private MainViewModel()
         {
             _userService = new UserService();
             _sessionService = new SessionService();
             _consultantService = new ConsultantService();
+            _requestService = new RequestService();
 
             //Load Commands
 
@@ -96,6 +158,11 @@ namespace ConsultPlanner.ViewModels
             LoadConsultantsCommand = new RelayCommand((object parameter) =>
             {
                 Consultants = new ObservableCollection<Consultants>(_consultantService.GetAllConsultantsWithNames());
+            });
+
+            LoadRequestCommand = new RelayCommand((object parameter) =>
+            {
+                ConsultationRequests = new ObservableCollection<ConsultationRequests>(_requestService.GetAllRequestsWithNames());
             });
 
             //Edit Commands
@@ -116,6 +183,10 @@ namespace ConsultPlanner.ViewModels
                     ConsultantDialog editConsultant = new ConsultantDialog(consultants);
                     editConsultant.Show();
                 }
+            });
+
+            EditRequestCommand = new RelayCommand((object parameter) => {
+
             });
 
             //Delete Commands
@@ -148,6 +219,10 @@ namespace ConsultPlanner.ViewModels
                 }
             });
 
+            DeleteRequestCommand = new RelayCommand((object parameter) => {
+
+            });
+
             //Add Commands
 
             AddUserCommand = new RelayCommand((object parameter) =>
@@ -162,9 +237,14 @@ namespace ConsultPlanner.ViewModels
                 addConsultant.Show();
             });
 
+            AddRequestCommand = new RelayCommand((object parameter) => {
+
+            });
+
             LoadUsersCommand.Execute(null);
             LoadConsultantsCommand.Execute(null);
             LoadSessionsCommand.Execute(null);
+            LoadRequestCommand.Execute(null);
         }
 
         public static MainViewModel Instance

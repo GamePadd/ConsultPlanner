@@ -23,6 +23,7 @@ namespace ConsultPlanner.Views
         public RequestList()
         {
             InitializeComponent();
+            DataContext = ViewModels.MainViewModel.Instance;
         }
     }
 }
