@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ConsultPlanner.ViewModels
@@ -92,6 +93,29 @@ namespace ConsultPlanner.ViewModels
         public ICommand SaveRequestCommand { get; }
         public ICommand CancelCommand { get; }
 
+        public bool Validate()
+        {
+            List<string> errors = new List<string>();
+
+            if (_selectedUser == null)
+                errors.Add("Не выбран пользователь");
+            if (_selectedConsultant == null)
+                errors.Add("Не выбран консультант");
+            if (string.IsNullOrEmpty(_request.Description))
+                errors.Add("Нет описания");
+            if (string.IsNullOrEmpty(_request.Status))
+                errors.Add("Нет статуса");
+
+            string errorMessage = errors.Count > 0 ? string.Join("\n", errors) : "";
+
+            if (errors.Count != 0)
+            {
+                MessageBox.Show(errorMessage, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            return errors.Count == 0;
+        }
+
         public RequestViewModel(ConsultationRequests request)
         {
             _userService = new UserService();
@@ -101,11 +125,42 @@ namespace ConsultPlanner.ViewModels
             {
                 if (_isEditing)
                 {
+                    bool isCorrect = Validate();
 
+                    if (isCorrect)
+                    {
+                        var updatedRequest = new ConsultationRequests
+                        {
+                            ID = _editingRequestId,
+                            UserID = _request.UserID,
+                            ConsultantID = _request.ConsultantID,
+                            Description = _request.Description,
+                            Status = _request.Status,
+                            RequestDate = _request.RequestDate
+                        };
+
+                        MainViewModel.Instance.UpdateRequest(updatedRequest);
+                        Close?.Invoke();
+                    }
                 }
                 else
                 {
+                    bool isCorrect = Validate();
 
+                    if (isCorrect)
+                    {
+                        var newRequest = new ConsultationRequests
+                        {
+                            UserID = _request.UserID,
+                            ConsultantID = _request.ConsultantID,
+                            Description = _request.Description,
+                            Status = _request.Status,
+                            RequestDate = _request.RequestDate
+                        };
+
+                        MainViewModel.Instance.AddRequest(newRequest);
+                        Close?.Invoke();
+                    }
                 }
             });
 
@@ -136,6 +191,8 @@ namespace ConsultPlanner.ViewModels
                     Status = request.Status,
                     RequestDate = request.RequestDate
                 };
+
+                _editingRequestId = _request.ID;
 
                 _isEditing = true;
                 LoadUsers(_request);

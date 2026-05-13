@@ -112,7 +112,6 @@ namespace ConsultPlanner.ViewModels
                     {
                         var newConsultant = new Consultants
                         {
-                            ID = _editingConsultantId,
                             UserID = _selectedUser.ID,
                             Description = this.Description,
                             Experience = this.Exp

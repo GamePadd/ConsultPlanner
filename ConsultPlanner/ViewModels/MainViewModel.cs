@@ -303,6 +303,21 @@ namespace ConsultPlanner.ViewModels
             LoadUsersCommand.Execute(null);
         }
 
+        //Requests
+
+        public void AddRequest(ConsultationRequests request)
+        {
+            _requestService.AddRequest(request);
+            LoadRequestCommand.Execute(null);
+        }
+
+        public void UpdateRequest(ConsultationRequests request)
+        {
+            _requestService.UpdateRequest(request);
+            LoadRequestCommand.Execute(null);
+        }
+
+
         //Pages
 
         //Sessions
