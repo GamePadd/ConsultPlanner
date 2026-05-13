@@ -11,6 +11,7 @@ namespace ConsultPlanner.Services
     {
         List<Topics> GetAllTopics();
         List<int> GetAllConsultTopics(int consultantID);
+        List<int> GetAllSessionTopics(int sessionID);
     }
     public class TopicService : ITopicInterface
     {
@@ -28,6 +29,14 @@ namespace ConsultPlanner.Services
             using (var _context = new ConsultPlannerEntities())
             {
                 return _context.ConsultantTopics.Where(r => r.ConsultantID == consultantID).Select(r => r.TopicID).ToList();
+            }
+        }
+
+        public List<int> GetAllSessionTopics(int sessionID)
+        {
+            using (var _context = new ConsultPlannerEntities())
+            {
+                return _context.SessionTopics.Where(r => r.SessionID == sessionID).Select(r => r.TopicID).ToList();
             }
         }
     }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConsultPlanner.Views"
         mc:Ignorable="d"
-        Title="Добавить сессию" Height="385" Width="500"
+        Title="Добавить сессию" Height="425" Width="500"
         FontFamily="Segoe UI Light"
         WindowStyle="None"
         Background="#242424"
@@ -104,9 +104,13 @@
                     <DataTemplate>
                         <TextBlock
                             Foreground="Black" Margin="5">
-                                <Run Text="{Binding LastName}"/>
-                                <Run Text="{Binding FirstName}"/>
-                                <Run Text="{Binding Patronymic}"/>
+                                <Run Text="{Binding ID}"/>
+                                <Run Text=","/>
+                                <Run Text="{Binding Users.LastName}"/>
+                                <Run Text=","/>
+                                <Run Text="{Binding Consultants.Users.LastName}"/>
+                                <Run Text=","/>
+                                <Run Text="{Binding Description}"/>
                         </TextBlock>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
@@ -124,8 +128,18 @@
             <TextBlock Grid.Row="6" Grid.Column = "0" Text="Конец:" Margin="5" Style="{StaticResource ResourceKey=InputTextView}"/>
             <DatePicker Grid.Row="6" Grid.Column="1" SelectedDate="{Binding EndTime}" Margin="5" Style="{StaticResource ResourceKey=DatePicker1}"/>
 
+            <TextBlock Grid.Row="7" Grid.Column = "0" Text="Темы:" Margin="5" Style="{StaticResource ResourceKey=InputTextView}"/>
+            <ComboBox ItemsSource="{Binding Topics}"  Background="#242424" Margin="5" Foreground="Black" Grid.Row="7" Grid.Column="1">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                            Foreground="Black" Margin="5"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
             <StackPanel Grid.Row="9" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
-                <Button Content="Ок" Command="{Binding SaveRequestCommand}" Style="{StaticResource ResourceKey=Button1}"/>
+                <Button Content="Ок" Command="{Binding SaveSessionCommand}" Style="{StaticResource ResourceKey=Button1}"/>
                 <Button Content="Отменить" Command="{Binding CancelCommand}" Style="{StaticResource ResourceKey=Button1}"/>
             </StackPanel>
         </Grid>
