@@ -10,6 +10,9 @@ namespace ConsultPlanner.Services
     public interface ISessionInterface
     {
         List<Sessions> GetAllSessions();
+        void DeleteSession(int sessionId);
+        void AddSession(Sessions session, List<int> topics);
+        void UpdateSession(Sessions session, List<int> topics);
     }
 
     internal class SessionService : ISessionInterface
@@ -20,6 +23,19 @@ namespace ConsultPlanner.Services
             {
                 return _context.Sessions.ToList();
             }
+        }
+
+        public void DeleteSession(int sessionId)
+        {
+
+        }
+        public void AddSession(Sessions session, List<int> topics)
+        {
+
+        }
+        public void UpdateSession(Sessions session, List<int> topics)
+        {
+
         }
     }
 }

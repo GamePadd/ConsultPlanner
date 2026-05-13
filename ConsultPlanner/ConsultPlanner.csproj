@@ -78,6 +78,7 @@
     <Compile Include="Services\UserService.cs" />
     <Compile Include="ViewModels\ConsultantViewModel.cs" />
     <Compile Include="ViewModels\RequestViewModel.cs" />
+    <Compile Include="ViewModels\SessionViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="Views\ConsultantDialog.xaml.cs">
       <DependentUpon>ConsultantDialog.xaml</DependentUpon>
@@ -99,6 +100,9 @@
     </Compile>
     <Compile Include="Views\RoleList.xaml.cs">
       <DependentUpon>RoleList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SessionDialog.xaml.cs">
+      <DependentUpon>SessionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TopicList.xaml.cs">
       <DependentUpon>TopicList.xaml</DependentUpon>
@@ -138,6 +142,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RoleList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SessionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

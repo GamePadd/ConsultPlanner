@@ -125,15 +125,18 @@ namespace ConsultPlanner.ViewModels
 
         //Delete
         public ICommand DeleteUserCommand { get; }
+        public ICommand DeleteSessionCommand { get; }
         public ICommand DeleteConsultantCommand { get; }
         public ICommand DeleteRequestCommand { get; }
 
         //Edit
         public ICommand EditUserCommand { get; }
+        public ICommand EditSessionCommand { get; }
         public ICommand EditConsultantCommand { get; }
         public ICommand EditRequestCommand { get; }
         //Add
         public ICommand AddUserCommand { get; }
+        public ICommand AddSessionCommand { get; }
         public ICommand AddConsultantCommand { get; }
         public ICommand AddRequestCommand { get; }
 
@@ -188,8 +191,17 @@ namespace ConsultPlanner.ViewModels
             EditRequestCommand = new RelayCommand((object parameter) => {
                 if (parameter is ConsultationRequests request)
                 {
-                    RequestDialog requestDialog = new RequestDialog(request);
-                    requestDialog.Show();
+                    RequestDialog editRequest = new RequestDialog(request);
+                    editRequest.Show();
+                }
+            });
+
+            EditSessionCommand = new RelayCommand((object parameter) =>
+            {
+                if (parameter is Sessions session)
+                {
+                    SessionDialog editSession = new SessionDialog(session);
+                    editSession.Show();
                 }
             });
 
@@ -237,6 +249,21 @@ namespace ConsultPlanner.ViewModels
                 }
             });
 
+            DeleteSessionCommand = new RelayCommand((object parameter) =>
+            {
+                if (parameter is Sessions session)
+                {
+                    var result = MessageBox.Show($"Удалить сессию {session.Name}?",
+                        "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        _sessionService.DeleteSession(session.ID);
+                        LoadSessionsCommand.Execute(null);
+                    }
+                }
+            });
+
             //Add Commands
 
             AddUserCommand = new RelayCommand((object parameter) =>
@@ -254,6 +281,12 @@ namespace ConsultPlanner.ViewModels
             AddRequestCommand = new RelayCommand((object parameter) => {
                 RequestDialog addRequest = new RequestDialog();
                 addRequest.Show();
+            });
+
+            AddSessionCommand = new RelayCommand((object parameter) =>
+            {
+                SessionDialog addSession = new SessionDialog();
+                addSession.Show();
             });
 
             LoadUsersCommand.Execute(null);
@@ -317,10 +350,19 @@ namespace ConsultPlanner.ViewModels
             LoadRequestCommand.Execute(null);
         }
 
-
-        //Pages
-
         //Sessions
+
+        public void AddSession(Sessions session, List<int> topics)
+        {
+            _sessionService.AddSession(session, topics);
+            LoadSessionsCommand.Execute(null);
+        }
+
+        public void UpdateSession(Sessions session, List<int> topics)
+        {
+            _sessionService.UpdateSession(session, topics);
+            LoadSessionsCommand.Execute(null);
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
