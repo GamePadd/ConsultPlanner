@@ -81,15 +81,24 @@
                     <Button Content="Консультанты" 
                             Style="{StaticResource ResourceKey=Button1}"
                             Click="OpenConsPage"/>
-                    <Button Content="Роли" 
+                    <Button Content="Запросы" 
                             Style="{StaticResource ResourceKey=Button1}"
-                            Click="OpenRolesPage"/>
+                            Click="OpenSessionsReqPage"/>
                     <Button Content="Сессии" 
                             Style="{StaticResource ResourceKey=Button1}"
                             Click="OpenSessionsPage"/>
+                    <Button Content="Роли" 
+                            Style="{StaticResource ResourceKey=Button1}"
+                            Click="OpenRolesPage"/>
                     <Button Content="Темы" 
                             Style="{StaticResource ResourceKey=Button1}"
                             Click="OpenTopicsPage"/>
+                    <Button Content="Отзывы" 
+                            Style="{StaticResource ResourceKey=Button1}"
+                            Click="OpenFeedbacksPage"/>
+                    <Button Content="Сообщения" 
+                            Style="{StaticResource ResourceKey=Button1}"
+                            Click="OpenMessagesPage"/>
                 </StackPanel>
             </ScrollViewer>
 

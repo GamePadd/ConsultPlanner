@@ -34,20 +34,32 @@ namespace ConsultPlanner.Views
         {
             MainFrame.Navigate(new ConsultantList());
         }
-
-        private void OpenRolesPage(object sender, RoutedEventArgs e)
+        private void OpenSessionsReqPage(object sender, RoutedEventArgs e)
         {
-
+            MainFrame.Navigate(new RequestList());
         }
 
         private void OpenSessionsPage(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new SessionList());
         }
-
+        private void OpenRolesPage(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new RoleList());
+        }
         private void OpenTopicsPage(object sender, RoutedEventArgs e)
         {
+            MainFrame.Navigate(new TopicList());
+        }
 
+        private void OpenFeedbacksPage(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new FeedbackList());
+        }
+
+        private void OpenMessagesPage(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new MessagesList());
         }
 
         private void buttonMinimize_Click(object sender, RoutedEventArgs e)

@@ -81,6 +81,21 @@
     <Compile Include="Views\ConsultantList.xaml.cs">
       <DependentUpon>ConsultantList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\FeedbackList.xaml.cs">
+      <DependentUpon>FeedbackList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MessagesList.xaml.cs">
+      <DependentUpon>MessagesList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RequestList.xaml.cs">
+      <DependentUpon>RequestList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RoleList.xaml.cs">
+      <DependentUpon>RoleList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TopicList.xaml.cs">
+      <DependentUpon>TopicList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserDialog.xaml.cs">
       <DependentUpon>UserDialog.xaml</DependentUpon>
     </Compile>
@@ -96,6 +111,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ConsultantList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FeedbackList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MessagesList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RequestList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RoleList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TopicList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
