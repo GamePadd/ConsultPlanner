@@ -113,6 +113,7 @@ namespace ConsultPlanner.ViewModels
         //Services
         private readonly IUserInterface _userService;
         private readonly IRoleInterface _roleService;
+        private readonly ITopicInterface _topicService;
         private readonly ISessionInterface _sessionService;
         private readonly IConsultantService _consultantService;
         private readonly IRequestInterface _requestService;
@@ -124,6 +125,7 @@ namespace ConsultPlanner.ViewModels
         public ICommand LoadConsultantsCommand { get; }
         public ICommand LoadRequestCommand { get; }
         public ICommand LoadRolesCommand { get; }
+        public ICommand LoadTopicsCommand { get; }
 
         //Delete
         public ICommand DeleteUserCommand { get; }
@@ -131,6 +133,7 @@ namespace ConsultPlanner.ViewModels
         public ICommand DeleteConsultantCommand { get; }
         public ICommand DeleteRequestCommand { get; }
         public ICommand DeleteRoleCommand { get; }
+        public ICommand DeleteTopicCommand { get; }
 
         //Edit
         public ICommand EditUserCommand { get; }
@@ -138,12 +141,14 @@ namespace ConsultPlanner.ViewModels
         public ICommand EditConsultantCommand { get; }
         public ICommand EditRequestCommand { get; }
         public ICommand EditRoleCommand { get; }
+        public ICommand EditTopicCommand { get; }
         //Add
         public ICommand AddUserCommand { get; }
         public ICommand AddSessionCommand { get; }
         public ICommand AddConsultantCommand { get; }
         public ICommand AddRequestCommand { get; }
         public ICommand AddRoleCommand { get; }
+        public ICommand AddTopicCommand { get; }
 
         private MainViewModel()
         {
@@ -152,6 +157,7 @@ namespace ConsultPlanner.ViewModels
             _consultantService = new ConsultantService();
             _requestService = new RequestService();
             _roleService = new RoleService();
+            _topicService = new TopicService();
 
             //Load Commands
 
@@ -177,6 +183,11 @@ namespace ConsultPlanner.ViewModels
             LoadRolesCommand = new RelayCommand((object parameter) =>
             {
                 Roles = new ObservableCollection<Roles>(_roleService.GetAllRoles());
+            });
+
+            LoadTopicsCommand = new RelayCommand((object parameter) =>
+            {
+                Topics = new ObservableCollection<Topics>(_topicService.GetAllTopics());
             });
 
             //Edit Commands
@@ -222,6 +233,15 @@ namespace ConsultPlanner.ViewModels
                 {
                     RoleDialog editRole = new RoleDialog(role);
                     editRole.Show();
+                }
+            });
+
+            EditTopicCommand = new RelayCommand((object parameter) =>
+            {
+                if (parameter is Topics topic)
+                {
+                    TopicDialog editTopic = new TopicDialog(topic);
+                    editTopic.Show();
                 }
             });
 
@@ -299,6 +319,21 @@ namespace ConsultPlanner.ViewModels
                 }
             });
 
+            DeleteTopicCommand = new RelayCommand((object parameter) =>
+            {
+                if (parameter is Topics topic)
+                {
+                    var result = MessageBox.Show($"Удалить тему {topic.Name}?",
+                        "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        _topicService.DeleteTopic(topic.ID);
+                        LoadTopicsCommand.Execute(null);
+                    }
+                }
+            });
+
             //Add Commands
 
             AddUserCommand = new RelayCommand((object parameter) =>
@@ -330,11 +365,18 @@ namespace ConsultPlanner.ViewModels
                 addRole.Show();
             });
 
+            AddTopicCommand = new RelayCommand((object parameter) =>
+            {
+                TopicDialog addTopic = new TopicDialog();
+                addTopic.Show();
+            });
+
             LoadUsersCommand.Execute(null);
             LoadConsultantsCommand.Execute(null);
             LoadSessionsCommand.Execute(null);
             LoadRequestCommand.Execute(null);
             LoadRolesCommand.Execute(null);
+            LoadTopicsCommand.Execute(null);
         }
 
         public static MainViewModel Instance
@@ -418,6 +460,20 @@ namespace ConsultPlanner.ViewModels
         {
             _roleService.UpdateRole(role);
             LoadRolesCommand.Execute(null);
+        }
+
+        //Topics
+
+        public void AddTopic(Topics topic)
+        {
+            _topicService.AddTopic(topic);
+            LoadTopicsCommand.Execute(null);
+        }
+
+        public void UpdateTopic(Topics topic)
+        {
+            _topicService.UpdateTopic(topic);
+            LoadTopicsCommand.Execute(null);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
