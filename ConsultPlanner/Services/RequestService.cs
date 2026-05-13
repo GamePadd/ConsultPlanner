@@ -19,29 +19,32 @@ namespace ConsultPlanner.Services
     }
     public class RequestService : IRequestInterface
     {
-        private ConsultPlannerEntities _context;
-
-        public RequestService()
-        {
-            _context = new ConsultPlannerEntities();
-        }
 
         public List<ConsultationRequests> GetAllRequests()
         {
-            return _context.ConsultationRequests.ToList();
+            using (var _context = new ConsultPlannerEntities())
+            {
+                return _context.ConsultationRequests.ToList();
+            }
         }
 
         public List<ConsultationRequests> GetAllRequestsWithNames()
         {
-            return _context.ConsultationRequests.Include(u => u.Users).Include(c => c.Consultants).Include(cu => cu.Consultants.Users).ToList();
+            using (var _context = new ConsultPlannerEntities())
+            {
+                return _context.ConsultationRequests.Include(u => u.Users).Include(c => c.Consultants).Include(cu => cu.Consultants.Users).ToList();
+            }
         }
 
         public void AddRequest(ConsultationRequests request)
         {
             try
             {
-                _context.ConsultationRequests.Add(request);
-                _context.SaveChanges();
+                using (var _context = new ConsultPlannerEntities())
+                {
+                    _context.ConsultationRequests.Add(request);
+                    _context.SaveChanges();
+                }
             }
             catch (Exception ex)
             {
@@ -52,17 +55,20 @@ namespace ConsultPlanner.Services
         {
             try
             {
-                var existingRequest = _context.ConsultationRequests.Find(request.ID);
-
-                if(existingRequest != null)
+                using (var _context = new ConsultPlannerEntities())
                 {
-                    existingRequest.UserID = request.UserID;
-                    existingRequest.ConsultantID = request.ConsultantID;
-                    existingRequest.Description = request.Description;
-                    existingRequest.Status = request.Status;
-                    existingRequest.RequestDate = request.RequestDate;
+                    var existingRequest = _context.ConsultationRequests.Find(request.ID);
 
-                    _context.SaveChanges();
+                    if (existingRequest != null)
+                    {
+                        existingRequest.UserID = request.UserID;
+                        existingRequest.ConsultantID = request.ConsultantID;
+                        existingRequest.Description = request.Description;
+                        existingRequest.Status = request.Status;
+                        existingRequest.RequestDate = request.RequestDate;
+
+                        _context.SaveChanges();
+                    }
                 }
             }
             catch (Exception ex)
@@ -74,11 +80,14 @@ namespace ConsultPlanner.Services
         {
             try
             {
-                var existingRequest = _context.ConsultationRequests.Find(requestID);
-                if(existingRequest != null)
+                using (var _context = new ConsultPlannerEntities())
                 {
-                    _context.ConsultationRequests.Remove(existingRequest);
-                    _context.SaveChanges();
+                    var existingRequest = _context.ConsultationRequests.Find(requestID);
+                    if (existingRequest != null)
+                    {
+                        _context.ConsultationRequests.Remove(existingRequest);
+                        _context.SaveChanges();
+                    }
                 }
             }
             catch (Exception ex)

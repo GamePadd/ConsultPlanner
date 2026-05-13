@@ -14,14 +14,12 @@ namespace ConsultPlanner.Services
 
     internal class SessionService : ISessionInterface
     {
-        private ConsultPlannerEntities _context;
-        public SessionService()
-        {
-            _context = new ConsultPlannerEntities();
-        }
         public List<Sessions> GetAllSessions()
         {
-            return _context.Sessions.ToList();
+            using (var _context = new ConsultPlannerEntities())
+            {
+                return _context.Sessions.ToList();
+            }
         }
     }
 }

@@ -19,30 +19,33 @@ namespace ConsultPlanner.Services
     }
     public class ConsultantService : IConsultantService
     {
-        private ConsultPlannerEntities _context;
-
-        public ConsultantService()
-        {
-            _context = new ConsultPlannerEntities();
-        }
         public List<Consultants> GetAllConsultants()
         {
-            return _context.Consultants.ToList();
+            using (var _context = new ConsultPlannerEntities())
+            {
+                return _context.Consultants.ToList();
+            }
         }
 
         public List<Consultants> GetAllConsultantsWithNames()
         {
-            return _context.Consultants.Include(c => c.Users).ToList();
+            using (var _context = new ConsultPlannerEntities())
+            {
+                return _context.Consultants.Include(c => c.Users).ToList();
+            }
         }
         public void DeleteConsultant(int id)
         {
             try
             {
-                var consultant = _context.Consultants.Find(id);
-                if (consultant != null)
+                using (var _context = new ConsultPlannerEntities())
                 {
-                    _context.Consultants.Remove(consultant);
-                    _context.SaveChanges();
+                    var consultant = _context.Consultants.Find(id);
+                    if (consultant != null)
+                    {
+                        _context.Consultants.Remove(consultant);
+                        _context.SaveChanges();
+                    }
                 }
             }
             catch (Exception ex)
@@ -55,21 +58,24 @@ namespace ConsultPlanner.Services
         {
             try
             {
-                _context.Consultants.Add(consultant);
-                _context.SaveChanges();
-
-                if (topics != null)
+                using (var _context = new ConsultPlannerEntities())
                 {
-                    foreach(var topic in topics)
-                    {
-                        var consTopic = new ConsultantTopics
-                        {
-                            ConsultantID = consultant.ID,
-                            TopicID = topic
-                        };
-                        _context.ConsultantTopics.Add(consTopic);
-                    }
+                    _context.Consultants.Add(consultant);
                     _context.SaveChanges();
+
+                    if (topics != null)
+                    {
+                        foreach (var topic in topics)
+                        {
+                            var consTopic = new ConsultantTopics
+                            {
+                                ConsultantID = consultant.ID,
+                                TopicID = topic
+                            };
+                            _context.ConsultantTopics.Add(consTopic);
+                        }
+                        _context.SaveChanges();
+                    }
                 }
             }
             catch (Exception ex)
@@ -81,30 +87,33 @@ namespace ConsultPlanner.Services
         {
             try
             {
-                var existingConsultant = _context.Consultants.Find(consultant.ID);
-                if (existingConsultant != null)
+                using (var _context = new ConsultPlannerEntities())
                 {
-                    existingConsultant.UserID = consultant.UserID;
-                    existingConsultant.Description = consultant.Description;
-                    existingConsultant.Experience = consultant.Experience;
-
-                    if (topics != null)
+                    var existingConsultant = _context.Consultants.Find(consultant.ID);
+                    if (existingConsultant != null)
                     {
-                        var oldTopics = _context.ConsultantTopics.Where(i => i.ConsultantID == consultant.ID);
-                        _context.ConsultantTopics.RemoveRange(oldTopics);
+                        existingConsultant.UserID = consultant.UserID;
+                        existingConsultant.Description = consultant.Description;
+                        existingConsultant.Experience = consultant.Experience;
 
-                        foreach (var topic in topics)
+                        if (topics != null)
                         {
-                            var consTopic = new ConsultantTopics
+                            var oldTopics = _context.ConsultantTopics.Where(i => i.ConsultantID == consultant.ID);
+                            _context.ConsultantTopics.RemoveRange(oldTopics);
+
+                            foreach (var topic in topics)
                             {
-                                ConsultantID = consultant.ID,
-                                TopicID = topic
-                            };
-                            _context.ConsultantTopics.Add(consTopic);
+                                var consTopic = new ConsultantTopics
+                                {
+                                    ConsultantID = consultant.ID,
+                                    TopicID = topic
+                                };
+                                _context.ConsultantTopics.Add(consTopic);
+                            }
                         }
                     }
+                    _context.SaveChanges();
                 }
-                _context.SaveChanges();
             }
             catch (Exception ex)
             {

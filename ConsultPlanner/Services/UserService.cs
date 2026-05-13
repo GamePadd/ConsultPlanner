@@ -18,35 +18,37 @@ namespace ConsultPlanner.Services
 
     internal class UserService : IUserInterface
     {
-        private ConsultPlannerEntities _context;
-        public UserService()
-        {
-            _context = new ConsultPlannerEntities();
-        }
         public List<Users> GetAllUsers() 
         {
-            return _context.Users.ToList();
+            using (var _context = new ConsultPlannerEntities())
+            {
+                return _context.Users.ToList();
+            }
         }
 
         public void AddUser(Users user, List<int> roles)
         {
             try
             {
-                _context.Users.Add(user);
-                _context.SaveChanges();
-
-                if (roles != null && roles.Any())
+                using (var _context = new ConsultPlannerEntities())
                 {
-                    foreach (var role in roles) {
-
-                        var userRole = new UserRoles
-                        {
-                            UserID = user.ID,
-                            RoleID = role
-                        };
-                        _context.UserRoles.Add(userRole);
-                    }
+                    _context.Users.Add(user);
                     _context.SaveChanges();
+
+                    if (roles != null && roles.Any())
+                    {
+                        foreach (var role in roles)
+                        {
+
+                            var userRole = new UserRoles
+                            {
+                                UserID = user.ID,
+                                RoleID = role
+                            };
+                            _context.UserRoles.Add(userRole);
+                        }
+                        _context.SaveChanges();
+                    }
                 }
             }
             catch (Exception ex)
@@ -58,35 +60,38 @@ namespace ConsultPlanner.Services
         {
             try
             {
-                var existingUser = _context.Users.Find(user.ID);
-                
-                if (existingUser != null)
+                using (var _context = new ConsultPlannerEntities())
                 {
-                    existingUser.LastName = user.LastName;
-                    existingUser.FirstName = user.FirstName;
-                    existingUser.Patronymic = user.Patronymic;
-                    existingUser.Birthday = user.Birthday;
-                    existingUser.Phone = user.Phone;
-                    existingUser.Email = user.Email;
-                    existingUser.Password = user.Password;
+                    var existingUser = _context.Users.Find(user.ID);
 
-                    if (roles != null)
+                    if (existingUser != null)
                     {
-                        var oldRoles = _context.UserRoles.Where(r => r.UserID == user.ID);
-                        _context.UserRoles.RemoveRange(oldRoles);
+                        existingUser.LastName = user.LastName;
+                        existingUser.FirstName = user.FirstName;
+                        existingUser.Patronymic = user.Patronymic;
+                        existingUser.Birthday = user.Birthday;
+                        existingUser.Phone = user.Phone;
+                        existingUser.Email = user.Email;
+                        existingUser.Password = user.Password;
 
-                        foreach (var role in roles)
+                        if (roles != null)
                         {
-                            var userRole = new UserRoles
+                            var oldRoles = _context.UserRoles.Where(r => r.UserID == user.ID);
+                            _context.UserRoles.RemoveRange(oldRoles);
+
+                            foreach (var role in roles)
                             {
-                                UserID = user.ID,
-                                RoleID = role
-                            };
-                            _context.UserRoles.Add(userRole);
+                                var userRole = new UserRoles
+                                {
+                                    UserID = user.ID,
+                                    RoleID = role
+                                };
+                                _context.UserRoles.Add(userRole);
+                            }
                         }
                     }
+                    _context.SaveChanges();
                 }
-                _context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -97,11 +102,14 @@ namespace ConsultPlanner.Services
         {
             try
             {
-                var user = _context.Users.Find(id);
-                if (user != null)
+                using (var _context = new ConsultPlannerEntities())
                 {
-                    _context.Users.Remove(user);
-                    _context.SaveChanges();
+                    var user = _context.Users.Find(id);
+                    if (user != null)
+                    {
+                        _context.Users.Remove(user);
+                        _context.SaveChanges();
+                    }
                 }
             }
             catch (Exception ex)

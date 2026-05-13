@@ -14,21 +14,21 @@ namespace ConsultPlanner.Services
     }
     public class RoleService : IRoleInterface
     {
-        private ConsultPlannerEntities _context;
-
-        public RoleService()
-        {
-            _context = new ConsultPlannerEntities();
-        }
 
         public List<Roles> GetAllRoles()
         {
-            return _context.Roles.ToList();
+            using (var _context = new ConsultPlannerEntities())
+            {
+                return _context.Roles.ToList();
+            }
         }
 
         public List<int> GetAllRolesID(int userID)
         {
-            return _context.UserRoles.Where(r =>  r.UserID == userID).Select(r => r.RoleID).ToList();
+            using (var _context = new ConsultPlannerEntities())
+            {
+                return _context.UserRoles.Where(r => r.UserID == userID).Select(r => r.RoleID).ToList();
+            }
         }
     }
 }
