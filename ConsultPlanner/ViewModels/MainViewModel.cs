@@ -50,7 +50,7 @@ namespace ConsultPlanner.ViewModels
             }
         }
 
-        public ObservableCollection<Feedbacks> Feedbacks
+        public ObservableCollection<Feedbacks> SessionFeedbacks
         {
             get { return _feedbacks; }
             set
@@ -117,6 +117,8 @@ namespace ConsultPlanner.ViewModels
         private readonly ISessionInterface _sessionService;
         private readonly IConsultantService _consultantService;
         private readonly IRequestInterface _requestService;
+        private readonly IMessageService _messageService;
+        private readonly IFeedbackService _feedbackService;
 
         //Commands
         //Load
@@ -126,6 +128,8 @@ namespace ConsultPlanner.ViewModels
         public ICommand LoadRequestCommand { get; }
         public ICommand LoadRolesCommand { get; }
         public ICommand LoadTopicsCommand { get; }
+        public ICommand LoadMessagesCommand { get; }
+        public ICommand LoadFeedbacksCommand { get; }
 
         //Delete
         public ICommand DeleteUserCommand { get; }
@@ -134,6 +138,8 @@ namespace ConsultPlanner.ViewModels
         public ICommand DeleteRequestCommand { get; }
         public ICommand DeleteRoleCommand { get; }
         public ICommand DeleteTopicCommand { get; }
+        public ICommand DeleteMessageCommand { get; }
+        public ICommand DeleteFeedbackCommand { get; }
 
         //Edit
         public ICommand EditUserCommand { get; }
@@ -158,6 +164,8 @@ namespace ConsultPlanner.ViewModels
             _requestService = new RequestService();
             _roleService = new RoleService();
             _topicService = new TopicService();
+            _messageService = new MessageService();
+            _feedbackService = new FeedbackService();
 
             //Load Commands
 
@@ -188,6 +196,16 @@ namespace ConsultPlanner.ViewModels
             LoadTopicsCommand = new RelayCommand((object parameter) =>
             {
                 Topics = new ObservableCollection<Topics>(_topicService.GetAllTopics());
+            });
+
+            LoadMessagesCommand = new RelayCommand((object parameter) =>
+            {
+                SessionsMessages = new ObservableCollection<SessionMessages>(_messageService.GetAllMessages());
+            });
+
+            LoadFeedbacksCommand = new RelayCommand((object parameter) =>
+            {
+                SessionFeedbacks = new ObservableCollection<Feedbacks>(_feedbackService.GetAllFeedback());
             });
 
             //Edit Commands
@@ -334,6 +352,36 @@ namespace ConsultPlanner.ViewModels
                 }
             });
 
+            DeleteFeedbackCommand = new RelayCommand((object parameter) =>
+            {
+                if (parameter is Feedbacks feedback)
+                {
+                    var result = MessageBox.Show($"Удалить отзыв?",
+                        "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        _feedbackService.DeleteFeedback(feedback.ID);
+                        LoadFeedbacksCommand.Execute(null);
+                    }
+                }
+            });
+
+            DeleteMessageCommand = new RelayCommand((object parameter) =>
+            {
+                if (parameter is SessionMessages message)
+                {
+                    var result = MessageBox.Show($"Удалить сообщение?",
+                        "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        _messageService.DeleteMessage(message.ID);
+                        LoadMessagesCommand.Execute(null);
+                    }
+                }
+            });
+
             //Add Commands
 
             AddUserCommand = new RelayCommand((object parameter) =>
@@ -377,6 +425,8 @@ namespace ConsultPlanner.ViewModels
             LoadRequestCommand.Execute(null);
             LoadRolesCommand.Execute(null);
             LoadTopicsCommand.Execute(null);
+            LoadMessagesCommand.Execute(null);
+            LoadFeedbacksCommand.Execute(null);
         }
 
         public static MainViewModel Instance

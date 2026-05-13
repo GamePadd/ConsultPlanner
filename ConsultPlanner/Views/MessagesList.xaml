@@ -5,10 +5,104 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ConsultPlanner.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      Background="#242424"
+      FontFamily="Segoe UI Light"
+      d:DesignHeight="540" d:DesignWidth="960"
       Title="MessagesList">
 
+    <Page.Resources>
+        <Style x:Key="TableButton" TargetType="Button">
+            <Setter Property="Background" Value="#303030"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="BorderThickness" Value="0.6"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="19"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+        <Style x:Key="Button1" TargetType="Button">
+            <Setter Property="Background" Value="#242424"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="BorderThickness" Value="0.8"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Margin" Value="5 5"/>
+            <Setter Property="Padding" Value="10"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#474747"/>
+                    <Setter Property="TextBlock.TextDecorations" Value="Underline"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DataGrid ItemsSource="{Binding SessionsMessages, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0"
+          d:ItemsSource="{d:SampleData ItemCount=3}"
+          Margin="5"
+          AutoGenerateColumns="False"
+          Background="#242424" 
+          BorderThickness="0"
+          RowHeight="35"
+          CanUserAddRows="False"
+          CanUserDeleteRows="False"
+          CanUserResizeRows="False"
+          CanUserResizeColumns="True"
+          CanUserReorderColumns="False"
+          CanUserSortColumns="True"
+          VerticalScrollBarVisibility="Auto"
+          HorizontalScrollBarVisibility="Hidden"
+          RowBackground="#303030"
+          RowHeaderWidth="0"
+          AlternatingRowBackground="#4c4c4c"
+          FontSize="15"
+          Foreground="White">
+            <DataGrid.Resources>
+                <Style x:Key="ColumnHeader" TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#4c4c4c"/>
+                    <Setter Property="BorderThickness" Value="0 2"/>
+                    <Setter Property="FontSize" Value="13"/>
+                    <Setter Property="BorderBrush" Value="Black" />
+                    <Setter Property="BorderThickness" Value="0 1 1 1"/>
+                    <Setter Property="Height" Value="35"/>
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="FontFamily" Value="Segoe UI Light"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.ColumnHeaderStyle>
+                <StaticResource ResourceKey="ColumnHeader"/>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}" IsReadOnly="True" Width="30"/>
+                <DataGridTextColumn Header="Пользователь" IsReadOnly="True" Width="*">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="Users.LastName"/>
+                            <Binding Path="Users.FirstName"/>
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Сессия" Binding="{Binding Sessions.Name}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Сообщение" Binding="{Binding Message}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Дата отправления" Binding="{Binding DateSend, StringFormat={}{0:dd/MM/yyyy}}" IsReadOnly="True" Width="*"/>
+                <DataGridTemplateColumn Header="Управление" CanUserSort="False" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button Style="{StaticResource ResourceKey=TableButton}" Command="{Binding DataContext.DeleteMessageCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding}">
+                                    <Image Source="../Resources/Images/Exit.png"/>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>

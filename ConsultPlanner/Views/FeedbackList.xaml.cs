@@ -23,6 +23,7 @@ namespace ConsultPlanner.Views
         public FeedbackList()
         {
             InitializeComponent();
+            DataContext = ViewModels.MainViewModel.Instance;
         }
     }
 }
