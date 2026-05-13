@@ -226,7 +226,7 @@ namespace ConsultPlanner.ViewModels
             DeleteRequestCommand = new RelayCommand((object parameter) => {
                 if (parameter is ConsultationRequests request)
                 {
-                    var result = MessageBox.Show($"Удалить запрос от {request.Users.LastName}?",
+                    var result = MessageBox.Show($"Удалить запрос на консультацию от {request.Users.LastName} {request.Users.FirstName}?",
                         "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     if (result == MessageBoxResult.Yes)

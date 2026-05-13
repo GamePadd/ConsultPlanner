@@ -132,8 +132,8 @@ namespace ConsultPlanner.ViewModels
                         var updatedRequest = new ConsultationRequests
                         {
                             ID = _editingRequestId,
-                            UserID = _request.UserID,
-                            ConsultantID = _request.ConsultantID,
+                            UserID = _selectedUser.ID,
+                            ConsultantID = _selectedConsultant.ID,
                             Description = _request.Description,
                             Status = _request.Status,
                             RequestDate = _request.RequestDate
@@ -151,8 +151,8 @@ namespace ConsultPlanner.ViewModels
                     {
                         var newRequest = new ConsultationRequests
                         {
-                            UserID = _request.UserID,
-                            ConsultantID = _request.ConsultantID,
+                            UserID = _selectedUser.ID,
+                            ConsultantID = _selectedConsultant.ID,
                             Description = _request.Description,
                             Status = _request.Status,
                             RequestDate = _request.RequestDate
